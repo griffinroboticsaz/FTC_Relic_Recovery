@@ -22,7 +22,7 @@ public class TestOpMode extends OpMode{
     double rightPower;
     double currentLeftPower;
     double currentRightPower;
-    double lt = 0.8;
+    double lt = 0.5;
     Thread main = Thread.currentThread();
 
     {
@@ -42,8 +42,13 @@ public class TestOpMode extends OpMode{
     public void loop() {
         currentLeftPower = gamepad1.left_stick_y - gamepad1.left_stick_x;
         currentRightPower = gamepad1.left_stick_y + gamepad1.left_stick_x;
-        currentLeftPower = Range.clip(currentLeftPower, -lt, lt);
-        currentRightPower = Range.clip(currentRightPower, -lt, lt);
+        //currentLeftPower = Range.clip(currentLeftPower, -lt, lt);
+        //currentRightPower = Range.clip(currentRightPower, -lt, lt);
+
+        if (currentLeftPower < .04 && currentLeftPower > -.04)
+            currentLeftPower = 0;
+        if (currentRightPower < .04 && currentRightPower > -.04)
+            currentRightPower = 0;
 
         if (leftPower < currentLeftPower) {
             leftPower += .05;
@@ -69,6 +74,7 @@ public class TestOpMode extends OpMode{
                 rightPower = -lt;
             }
         }
+
         left.setPower(leftPower);
         right.setPower(rightPower);
         try {
