@@ -2,11 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor  ;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-
 
 /**
  * Created by Griffins on 9/11/2017.
@@ -39,6 +38,7 @@ public class TestOpMode extends OpMode{
 
     @Override
     public void loop() {
+        //DriveMotorFunctions.driveForward(left, right);
         currentLeftPower = gamepad1.left_stick_y - gamepad1.left_stick_x;
         currentRightPower = gamepad1.left_stick_y + gamepad1.left_stick_x;
         currentLeftPower = Range.clip(currentLeftPower, -1, 1);
