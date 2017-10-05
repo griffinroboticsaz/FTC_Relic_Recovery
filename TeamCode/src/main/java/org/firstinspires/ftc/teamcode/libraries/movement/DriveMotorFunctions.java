@@ -7,12 +7,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  */
 
 public class DriveMotorFunctions {
-   // private DcMotor leftDrive = null;
-    //private DcMotor
+    private DcMotor leftDrive;
+    private DcMotor rightDrive;
 
 
     public static void driveForward(DcMotor leftMotor , DcMotor rightMotor) {
-        //leftMotor =
-        //rightMotor =
+        leftMotor
+        rightMotor
     }
 }
