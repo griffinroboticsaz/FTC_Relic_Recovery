@@ -20,13 +20,21 @@ public class EncoderUtils {
      * @param counts
      * @return distance
      */
-    public static double calcDistance(long counts) {
+    public static double calcDistance(int counts) {
         return (counts / COUNTS_PER_ROTATION) * GEAR_RATIO * WHEEL_CIRC;
     }
 
     /**
+     * Returns number of counts based off of inches
+     * @param inches - inches to travel
+     * @return Encoder counts
+     */
+    public static int calcCounts(double inches){
+        return (int) (inches * COUNTS_PER_ROTATION/(GEAR_RATIO * WHEEL_CIRC));
+    }
+
+    /**
      * Returns ratio between two encoders
-     *
      * @param count1 - encoder count from encoder 1
      * @param count2 - encoder count from encoder 2
      * @return ratio
@@ -48,7 +56,7 @@ public class EncoderUtils {
             motor1.setPower(motor1.getPower() / ratio);
         } else if (ratio < 1) {
             // TODO // FIXME: 10/16/2017  motor2.setPower(motor2.getPower()/ratio)
-            motor1.setPower(motor1.getPower() * ratio);
+            motor2.setPower(motor2.getPower() * ratio);
         }
     }
 }
