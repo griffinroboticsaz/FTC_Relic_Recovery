@@ -12,7 +12,7 @@ public class EncoderUtils {
     private static final int COUNTS_PER_ROTATION = 1440;
     private static final double GEAR_RATIO = 2d;
     private static final double PI = Math.PI;
-    private static final double WHEEL_CIRC = 2d * PI;
+    private static final double WHEEL_CIRC = 3.875d * PI;
 
     /**
      * Calculating distance from the number of counts
