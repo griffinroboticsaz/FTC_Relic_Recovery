@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.Movement;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import java.lang.Math.*;
-
 /**
  * Created by Justin on 10/16/2017.
  */
@@ -55,7 +53,6 @@ public class EncoderUtils {
         if (ratio > 1) {
             motor1.setPower(motor1.getPower() / ratio);
         } else if (ratio < 1) {
-            // TODO // FIXME: 10/16/2017  motor2.setPower(motor2.getPower()/ratio)
             motor2.setPower(motor2.getPower() * ratio);
         }
     }

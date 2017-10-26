@@ -55,21 +55,27 @@ public class HardwarePushbot
 {
     /* Public OpMode members. */
     public DcMotor  left   = null;
+
     public DcMotor  right  = null;
     public DcMotor  lift     = null;
     public Servo    arm    = null;
     public Servo    rot   = null;
-
     public static final double MID_SERVO       =  0.5 ;
+
     public static final double ARM_UP_POWER    =  0.45 ;
     public static final double ARM_DOWN_POWER  = -0.45 ;
+    public static HardwarePushbot getInstance() {
+        return instance;
+    }
+
+    public static final HardwarePushbot instance = new HardwarePushbot();
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
-    private ElapsedTime period  = new ElapsedTime();
 
+    private ElapsedTime period  = new ElapsedTime();
     /* Constructor */
-    public HardwarePushbot(){
+    private HardwarePushbot(){
 
     }
 
@@ -102,5 +108,25 @@ public class HardwarePushbot
         arm.setPosition(MID_SERVO);
         rot.setPosition(MID_SERVO);
     }
- }
+
+    public DcMotor getLeft() {
+        return left;
+    }
+
+    public DcMotor getRight() {
+        return right;
+    }
+
+    public DcMotor getLift() {
+        return lift;
+    }
+
+    public Servo getArm() {
+        return arm;
+    }
+
+    public Servo getRot() {
+        return rot;
+    }
+}
 
