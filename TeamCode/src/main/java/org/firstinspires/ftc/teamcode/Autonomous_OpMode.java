@@ -65,6 +65,7 @@ public class Autonomous_OpMode extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
