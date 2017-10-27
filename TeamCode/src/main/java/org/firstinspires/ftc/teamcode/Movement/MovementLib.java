@@ -40,10 +40,11 @@ public class MovementLib {
         }
 
     }*/
-    public static void forward(HardwarePushbot robot, double inches, double speed){
-        robot.getRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.getLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    public static void forward(HardwarePushbot robot, double inches, double speed, Telemetry telemetry){
+        telemetry.addData("Working!", "");
         int counts = EncoderUtils.calcCounts(inches);
+        telemetry.addData("Counts", counts);
+
 
         robot.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -58,15 +59,20 @@ public class MovementLib {
         robot.getLeft().setPower(speed);
 
         while(robot.getRight().getCurrentPosition() <= counts && robot.getLeft().getCurrentPosition() <= counts){
+            telemetry.update();
             if(robot.getRight().getCurrentPosition() == counts && robot.getLeft().getCurrentPosition() == counts){
                 robot.getRight().setPower(0);
                 robot.getLeft().setPower(0);
-
                 robot.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.getRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.getLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
                 break;
             }
         }
+        robot.getRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.getLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
 }
