@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  */
 
 public class EncoderUtils {
-    private static final int COUNTS_PER_ROTATION = 1440;
+    private static final int COUNTS_PER_ROTATION = 420;
     private static final double GEAR_RATIO = 2d;
     private static final double PI = Math.PI;
     private static final double WHEEL_CIRC = 3.875d * PI;

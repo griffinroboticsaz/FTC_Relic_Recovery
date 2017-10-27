@@ -44,6 +44,8 @@ public class MovementLib {
         telemetry.addData("Working!", "");
         int counts = EncoderUtils.calcCounts(inches);
         telemetry.addData("Counts", counts);
+        robot.getRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.getLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
         robot.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -58,9 +60,10 @@ public class MovementLib {
         robot.getRight().setPower(speed);
         robot.getLeft().setPower(speed);
 
-        while(robot.getRight().getCurrentPosition() <= counts && robot.getLeft().getCurrentPosition() <= counts){
+        while(robot.getRight().getCurrentPosition() <= counts && Math.abs(robot.getLeft().getCurrentPosition()) <= counts){
+            telemetry.addData("Counts Left", robot.getLeft().getCurrentPosition());
             telemetry.update();
-            if(robot.getRight().getCurrentPosition() == counts && robot.getLeft().getCurrentPosition() == counts){
+            if(robot.getRight().getCurrentPosition() >= counts && (Math.abs(robot.getLeft().getCurrentPosition()) >= counts)){
                 robot.getRight().setPower(0);
                 robot.getLeft().setPower(0);
                 robot.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -71,8 +74,6 @@ public class MovementLib {
                 break;
             }
         }
-        robot.getRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.getLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
 }
