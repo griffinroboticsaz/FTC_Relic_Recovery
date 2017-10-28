@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -60,6 +61,8 @@ public class CustomHardwareMap {
 
     public Servo arm = null;
     public Servo rot = null;
+
+    public Gyroscope gyroscope = null;
 
     public static final double MID_SERVO = 0.5;
 
@@ -100,12 +103,14 @@ public class CustomHardwareMap {
         left.setPower(0);
         right.setPower(0);
         lift.setPower(0);
+        feeder.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        feeder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
         arm = hwMap.get(Servo.class, "arm");
@@ -136,6 +141,10 @@ public class CustomHardwareMap {
 
     public DcMotor getFeeder() {
         return feeder;
+    }
+
+    public Gyroscope getGyroscope() {
+        return gyroscope;
     }
 }
 

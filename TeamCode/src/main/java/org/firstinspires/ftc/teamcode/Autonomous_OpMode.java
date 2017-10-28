@@ -34,8 +34,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.CustomOpMode.LinearCustomOpMode;
 import org.firstinspires.ftc.teamcode.Movement.AppendageLib;
 import org.firstinspires.ftc.teamcode.Movement.MovementLib;
+import org.firstinspires.ftc.teamcode.SensorUtils.Timer;
 
 
 /**
@@ -52,14 +54,7 @@ import org.firstinspires.ftc.teamcode.Movement.MovementLib;
  */
 
 @Autonomous(name = "TestLinear", group = "Linear Autonomous")
-public class Autonomous_OpMode extends LinearOpMode {
-
-    // Declare OpMode members.
-    private CustomHardwareMap robot = CustomHardwareMap.getInstance();
-    private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
-
+public class Autonomous_OpMode extends LinearCustomOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap);
@@ -85,7 +80,7 @@ public class Autonomous_OpMode extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         try {
-
+            MovementLib.forward(robot, 20, .1, this);
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());
             telemetry.update();

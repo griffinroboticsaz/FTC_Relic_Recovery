@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.Movement;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.CustomHardwareMap;
 
 /**
@@ -40,10 +42,10 @@ public class MovementLib {
         }
 
     }*/
-    public static void forward(CustomHardwareMap robot, double inches, double speed, Telemetry telemetry){
-        telemetry.addData("Working!", "");
+    public static<Mode extends OpMode> void forward(CustomHardwareMap robot, double inches, double speed, Mode mode) {
+        mode.telemetry.addData("Working!", "");
         int counts = EncoderUtils.calcCounts(inches);
-        telemetry.addData("Counts", counts);
+        mode.telemetry.addData("Counts", counts);
         robot.getRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.getLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -60,10 +62,10 @@ public class MovementLib {
         robot.getRight().setPower(speed);
         robot.getLeft().setPower(speed);
 
-        while(robot.getRight().getCurrentPosition() <= counts && Math.abs(robot.getLeft().getCurrentPosition()) <= counts){
-            telemetry.addData("Counts Left", robot.getLeft().getCurrentPosition());
-            telemetry.update();
-            if(robot.getRight().getCurrentPosition() >= counts && (Math.abs(robot.getLeft().getCurrentPosition()) >= counts)){
+        while (robot.getRight().getCurrentPosition() <= counts && Math.abs(robot.getLeft().getCurrentPosition()) <= counts) {
+            mode.telemetry.addData("Counts Left", robot.getLeft().getCurrentPosition());
+            mode.telemetry.update();
+            if (robot.getRight().getCurrentPosition() >= counts && (Math.abs(robot.getLeft().getCurrentPosition()) >= counts)) {
                 robot.getRight().setPower(0);
                 robot.getLeft().setPower(0);
                 robot.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -75,5 +77,8 @@ public class MovementLib {
             }
         }
 
+   /* public static<Mode extends OpMode> void rotate(CustomHardwareMap robot, double angle, double speed, Mode mode) {
+        robot.getGyroscope().getAngularVelocity(AngleUnit.DEGREES).
+    }*/
     }
 }

@@ -62,6 +62,12 @@ public class EncoderUtils {
         }
     }
 
+    /**
+     *
+     * @param angle
+     *
+     * @return
+     */
     public static int degreeRotation(double angle) {
         return (int) (ANGLE_OF_COUNT_DEGREES * angle);
     }
