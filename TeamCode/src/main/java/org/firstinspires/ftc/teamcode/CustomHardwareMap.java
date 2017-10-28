@@ -30,52 +30,55 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * This is NOT an opmode.
- *
+ * <p>
  * This class can be used to define all the specific hardware for a single robot.
  * In this case that robot is a Pushbot.
  * See PushbotTeleopTank_Iterative and others classes starting with "Pushbot" for usage examples.
- *
+ * <p>
  * This hardware class assumes the following device names have been configured on the robot:
  * Note:  All names are lower case and some have single spaces between words.
- *
+ * <p>
  * Motor channel:  Left  drive motor:        "left"
  * Motor channel:  Right drive motor:        "right"
  * Motor channel:  Manipulator drive motor:  "left_arm"
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
-public class HardwarePushbot
-{
+public class CustomHardwareMap {
     /* Public OpMode members. */
-    public DcMotor  left   = null;
+    public DcMotor left = null;
+    public DcMotor right = null;
 
-    public DcMotor  right  = null;
-    public DcMotor  lift     = null;
-    public Servo    arm    = null;
-    public Servo    rot   = null;
-    public static final double MID_SERVO       =  0.5 ;
+    public DcMotor lift = null;
+    public DcMotor feeder = null;
 
-    public static final double ARM_UP_POWER    =  0.45 ;
-    public static final double ARM_DOWN_POWER  = -0.45 ;
-    public static HardwarePushbot getInstance() {
+    public Servo arm = null;
+    public Servo rot = null;
+
+    public static final double MID_SERVO = 0.5;
+
+    public static final double ARM_UP_POWER = 0.45;
+    public static final double ARM_DOWN_POWER = -0.45;
+
+    public static CustomHardwareMap getInstance() {
         return instance;
     }
 
-    public static final HardwarePushbot instance = new HardwarePushbot();
+    public static final CustomHardwareMap instance = new CustomHardwareMap();
 
     /* local OpMode members. */
-    HardwareMap hwMap           =  null;
+    HardwareMap hwMap = null;
 
-    private ElapsedTime period  = new ElapsedTime();
+    private ElapsedTime period = new ElapsedTime();
+
     /* Constructor */
-    private HardwarePushbot(){
+    private CustomHardwareMap() {
 
     }
 
@@ -85,9 +88,11 @@ public class HardwarePushbot
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        left  = hwMap.get(DcMotor.class, "left");
+        left = hwMap.get(DcMotor.class, "left");
         right = hwMap.get(DcMotor.class, "right");
-        lift    = hwMap.get(DcMotor.class, "lift");
+        lift = hwMap.get(DcMotor.class, "lift");
+        feeder = hwMap.get(DcMotor.class, "feeder");
+
         left.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         right.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
@@ -103,7 +108,7 @@ public class HardwarePushbot
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
-        arm  = hwMap.get(Servo.class, "arm");
+        arm = hwMap.get(Servo.class, "arm");
         rot = hwMap.get(Servo.class, "rot");
         arm.setPosition(MID_SERVO);
         rot.setPosition(MID_SERVO);
@@ -127,6 +132,10 @@ public class HardwarePushbot
 
     public Servo getRot() {
         return rot;
+    }
+
+    public DcMotor getFeeder() {
+        return feeder;
     }
 }
 

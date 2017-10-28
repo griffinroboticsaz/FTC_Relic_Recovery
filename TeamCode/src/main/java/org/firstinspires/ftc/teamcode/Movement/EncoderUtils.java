@@ -11,6 +11,8 @@ public class EncoderUtils {
     private static final double GEAR_RATIO = 2d;
     private static final double PI = Math.PI;
     private static final double WHEEL_CIRC = 3.875d * PI;
+    private static final double ANGLE_OF_COUNT_DEGREES = 360 / 420;
+    private static final double ANGLE_OF_COUNT_RADIANS = (2 * PI) / 420;
 
     /**
      * Calculating distance from the number of counts
@@ -24,15 +26,17 @@ public class EncoderUtils {
 
     /**
      * Returns number of counts based off of inches
+     *
      * @param inches - inches to travel
      * @return Encoder counts
      */
-    public static int calcCounts(double inches){
-        return (int) (inches * COUNTS_PER_ROTATION/(GEAR_RATIO * WHEEL_CIRC));
+    public static int calcCounts(double inches) {
+        return (int) (inches * COUNTS_PER_ROTATION / (GEAR_RATIO * WHEEL_CIRC));
     }
 
     /**
      * Returns ratio between two encoders
+     *
      * @param count1 - encoder count from encoder 1
      * @param count2 - encoder count from encoder 2
      * @return ratio
@@ -43,6 +47,7 @@ public class EncoderUtils {
 
     /**
      * Modifies the stronger motor to match the weaker motor.
+     *
      * @param motor1 - reference to a motor
      * @param motor2 - reference to a motor
      * @param count1 - encoder count of motor1
@@ -55,5 +60,13 @@ public class EncoderUtils {
         } else if (ratio < 1) {
             motor2.setPower(motor2.getPower() * ratio);
         }
+    }
+
+    public static int degreeRotation(double angle) {
+        return (int) (ANGLE_OF_COUNT_DEGREES * angle);
+    }
+
+    public static int radianRotation(double angle) {
+        return (int) (ANGLE_OF_COUNT_RADIANS * angle);
     }
 }

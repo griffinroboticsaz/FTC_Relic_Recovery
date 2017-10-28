@@ -30,14 +30,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.Movement.EncoderUtils;
+import org.firstinspires.ftc.teamcode.Movement.AppendageLib;
 import org.firstinspires.ftc.teamcode.Movement.MovementLib;
 
 
@@ -58,7 +55,7 @@ import org.firstinspires.ftc.teamcode.Movement.MovementLib;
 public class Autonomous_OpMode extends LinearOpMode {
 
     // Declare OpMode members.
-    private HardwarePushbot robot = HardwarePushbot.getInstance();
+    private CustomHardwareMap robot = CustomHardwareMap.getInstance();
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
@@ -88,15 +85,10 @@ public class Autonomous_OpMode extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         try {
-            MovementLib.forward(robot, 10, .1, telemetry);
+
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());
             telemetry.update();
-            try {
-                telemetry.wait(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Movement;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.HardwarePushbot;
+import org.firstinspires.ftc.teamcode.CustomHardwareMap;
 
 /**
  * Created by Justin on 10/16/2017.
@@ -40,7 +40,7 @@ public class MovementLib {
         }
 
     }*/
-    public static void forward(HardwarePushbot robot, double inches, double speed, Telemetry telemetry){
+    public static void forward(CustomHardwareMap robot, double inches, double speed, Telemetry telemetry){
         telemetry.addData("Working!", "");
         int counts = EncoderUtils.calcCounts(inches);
         telemetry.addData("Counts", counts);

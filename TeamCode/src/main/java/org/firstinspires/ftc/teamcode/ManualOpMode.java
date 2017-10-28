@@ -16,10 +16,12 @@ public class ManualOpMode extends OpMode {
     public DcMotor left;
     public DcMotor right;
     public DcMotor lift;
+    public DcMotor feeder;
     public Servo arm;
     public Servo rot;
     double pLeft;
     double pRight;
+    double pFeeder;
     double safety;
     double powerReducer = 3;
     double armPos = 1;
@@ -32,6 +34,8 @@ public class ManualOpMode extends OpMode {
         left = hardwareMap.dcMotor.get("left");
         right = hardwareMap.dcMotor.get("right");
         lift = hardwareMap.dcMotor.get("lift");
+        feeder = hardwareMap.dcMotor.get("feeder");
+
         arm = hardwareMap.servo.get("arm");
         rot = hardwareMap.servo.get("rot");
         right.setDirection(DcMotor.Direction.FORWARD);
@@ -43,8 +47,11 @@ public class ManualOpMode extends OpMode {
         pLeft = -gamepad1.left_stick_y + gamepad1.left_stick_x;
         pRight = -gamepad1.left_stick_y - gamepad1.left_stick_x;
 
+        pFeeder = -gamepad1.left_trigger + gamepad1.right_trigger;
+
         left.setPower(pLeft);
         right.setPower(pRight);
+        feeder.setPower(pFeeder);
 
         safety = (gamepad1.right_stick_y / powerReducer);
         lift.setPower(safety);
@@ -55,6 +62,7 @@ public class ManualOpMode extends OpMode {
         if(((rotPos + gamepad2.right_stick_y / servoPowerReducer) >= 0) && ((rotPos + gamepad2.right_stick_y / servoPowerReducer) <= 1)){
             rotPos = rotPos + gamepad2.right_stick_y / servoPowerReducer;
         }
+
         arm.setPosition(armPos);
         rot.setPosition(rotPos);
     }
