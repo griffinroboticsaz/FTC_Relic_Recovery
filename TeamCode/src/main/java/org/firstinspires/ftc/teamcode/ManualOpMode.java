@@ -47,7 +47,7 @@ public class ManualOpMode extends OpMode {
         pLeft = -gamepad1.left_stick_y + gamepad1.left_stick_x;
         pRight = -gamepad1.left_stick_y - gamepad1.left_stick_x;
 
-        pFeeder = -gamepad1.left_trigger + gamepad1.right_trigger;
+        pFeeder = (-gamepad1.left_trigger + gamepad1.right_trigger) /3;
 
         left.setPower(pLeft);
         right.setPower(pRight);

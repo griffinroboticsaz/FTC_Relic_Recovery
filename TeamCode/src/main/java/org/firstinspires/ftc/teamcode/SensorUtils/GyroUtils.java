@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode.SensorUtils;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.CustomHardwareMap;
 
 /**
@@ -10,7 +7,16 @@ import org.firstinspires.ftc.teamcode.CustomHardwareMap;
  */
 
 public class GyroUtils {
-    /*public static<Mode extends OpMode> double calcAnglesTurned(CustomHardwareMap robot, Mode mode){
-        return robot.getGyroscope().getAngularVelocity(AngleUnit.RADIANS).zRotationRate() * mode;
+    public static double calcAngleTurned(CustomHardwareMap robot, long deltaTime){
+       return deltaTime != 0 ? robot.getGyroscope().getAngularVelocity().xRotationRate * deltaTime / 1000 : 0;
+    }
+    /*public static double calcTurnSpeed(double currentAngle, double targetAngle){
+        double result = Math.abs(Math.cos((Math.PI/(2 * targetAngle)) * currentAngle));
+        return result;
     }*/
+    public static double calcTurnSpeed(double currentAngle, double targetAngle){
+        if (targetAngle == 0) throw new IllegalArgumentException("Target cannot be 0!");
+        double result = Math.abs(Math.cos((90 / targetAngle) * currentAngle));
+        return result;
+    }
 }

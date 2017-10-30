@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -62,7 +63,7 @@ public class CustomHardwareMap {
     public Servo arm = null;
     public Servo rot = null;
 
-    public Gyroscope gyroscope = null;
+    public BNO055IMU gyroscope = null;
 
     public static final double MID_SERVO = 0.5;
 
@@ -95,6 +96,14 @@ public class CustomHardwareMap {
         right = hwMap.get(DcMotor.class, "right");
         lift = hwMap.get(DcMotor.class, "lift");
         feeder = hwMap.get(DcMotor.class, "feeder");
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES; //changed from radians
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+
+        gyroscope = hwMap.get(BNO055IMU.class, "imu");
+        gyroscope.initialize(parameters);
+
 
         left.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         right.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
@@ -143,7 +152,7 @@ public class CustomHardwareMap {
         return feeder;
     }
 
-    public Gyroscope getGyroscope() {
+    public BNO055IMU getGyroscope() {
         return gyroscope;
     }
 }

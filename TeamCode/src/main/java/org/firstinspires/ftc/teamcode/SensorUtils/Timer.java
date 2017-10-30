@@ -10,20 +10,29 @@ public final class Timer implements Runnable {
 
 
     public Timer(){
-        lastTime = System.currentTimeMillis();
+        lastTime = System.nanoTime();
         deltaTime = 0;
         this.run();
     }
 
     @Override
     public void run() {
+        setTimes();
+    }
+
+    private void setTimes(){
         synchronized (this) {
-            currentTime = System.currentTimeMillis();
-            deltaTime = currentTime - lastTime;
+            currentTime = System.nanoTime();
+            setDeltaTime(currentTime - lastTime);
             lastTime = currentTime;
         }
     }
 
+    public void setDeltaTime(long time){
+        synchronized (this){
+            deltaTime += time;
+        }
+    }
     public long getDeltaTime(){
         synchronized (this){
         return deltaTime;
