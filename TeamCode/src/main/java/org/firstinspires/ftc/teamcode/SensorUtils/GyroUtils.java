@@ -16,7 +16,6 @@ public class GyroUtils {
     }*/
     public static double calcTurnSpeed(double currentAngle, double targetAngle){
         if (targetAngle == 0) throw new IllegalArgumentException("Target cannot be 0!");
-        double result = Math.abs(Math.cos((90 / targetAngle) * currentAngle));
-        return result;
+        return Math.abs(Math.cos(( Math.PI/2 * currentAngle)/targetAngle));
     }
 }

@@ -84,7 +84,7 @@ public class Autonomous_OpMode extends LinearCustomOpMode {
         // run until the end of the match (driver presses STOP)
         try {
             //MovementLib.forward(robot, 20, .1, this);
-            MovementLib.rotate(robot, 90, .1, this);
+            MovementLib.rotate(robot, 90, 1, this);
             //MovementLib.forward(robot, 20, .1, this);
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());

@@ -134,11 +134,12 @@ public class MovementLib {
                 lastTime = currentTime;
             }
             currentAngle += GyroUtils.calcAngleTurned(robot, deltaTime);
-            motorPower = 1 / (GyroUtils.calcTurnSpeed(currentAngle, angle)) * speed < .02 ? .02 : 1 / (GyroUtils.calcTurnSpeed(currentAngle, angle) * speed);
+            motorPower = ((GyroUtils.calcTurnSpeed(currentAngle, angle))) * speed < .33 ? .33 : (GyroUtils.calcTurnSpeed(currentAngle, angle) * speed);
+           // motorPower = speed - (currentAngle/ angle) * speed;
             mode.telemetry.addData("speed", motorPower);
             mode.telemetry.addData("gyro", currentAngle);
             mode.telemetry.addData("start", speed);
-            mode.telemetry.addData("dt", mode.getTimer().getDeltaTime());
+            //mode.telemetry.addData("dt", mode.getTimer().getDeltaTime());
 
             mode.telemetry.update();
             if (motorReversed.equals("left")) {
