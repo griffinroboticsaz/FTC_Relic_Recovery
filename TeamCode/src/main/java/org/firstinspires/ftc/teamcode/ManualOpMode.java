@@ -28,6 +28,8 @@ public class ManualOpMode extends OpMode {
     double rotPos = 1;
     double servoPowerReducer = 250;
     double armServoPowerReducer = 250;
+    double openPos = 0.65;
+    double closedPos = 0.4;
 
     @Override
     public void init() {
@@ -40,6 +42,8 @@ public class ManualOpMode extends OpMode {
         rot = hardwareMap.servo.get("rot");
         right.setDirection(DcMotor.Direction.FORWARD);
         left.setDirection(DcMotor.Direction.REVERSE);
+
+        arm.setPosition(closedPos);
 
     }
     @Override
@@ -56,15 +60,22 @@ public class ManualOpMode extends OpMode {
         safety = (gamepad1.right_stick_y / powerReducer);
         lift.setPower(safety);
 
-        if(((armPos + gamepad2.left_stick_y / armServoPowerReducer) >= 0) && ((armPos + gamepad2.left_stick_y / armServoPowerReducer) <= 1)){
+        /*if(((armPos + gamepad2.left_stick_y / armServoPowerReducer) >= 0) && ((armPos + gamepad2.left_stick_y / armServoPowerReducer) <= 1)){
             armPos = armPos + gamepad2.left_stick_y / armServoPowerReducer;
-        }
+        }*/
         if(((rotPos + gamepad2.right_stick_y / servoPowerReducer) >= 0) && ((rotPos + gamepad2.right_stick_y / servoPowerReducer) <= 1)){
             rotPos = rotPos + gamepad2.right_stick_y / servoPowerReducer;
         }
 
         arm.setPosition(armPos);
         rot.setPosition(rotPos);
+
+        if(gamepad1.a){
+            arm.setPosition(openPos);
+        }
+        else if(gamepad1.b){
+            arm.setPosition(closedPos);
+        }
     }
 
 
