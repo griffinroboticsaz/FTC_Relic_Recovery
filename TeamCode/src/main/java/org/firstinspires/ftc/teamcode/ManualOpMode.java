@@ -23,16 +23,16 @@ public class ManualOpMode extends OpMode {
     double pLeft;
     double pRight;
     double pFeeder;
-    double safety;
+    double direction;
     double powerReducer = 3;
-    double armPos = 1;
     double rotPos = 1;
     double servoPowerReducer = 250;
-    double armServoPowerReducer = 250;
     double openPos = 0.0;
     double closedPos = 0.1;
     double colorSetPos = 0.45;
     double colorCheckPos = 1;
+    double dirUp = 0.666;
+    double dirDown = -0.2;
 
     @Override
     public void init() {
@@ -54,14 +54,19 @@ public class ManualOpMode extends OpMode {
         pLeft = -gamepad1.left_stick_y + gamepad1.left_stick_x;
         pRight = -gamepad1.left_stick_y - gamepad1.left_stick_x;
 
-        pFeeder = (-gamepad1.left_trigger + gamepad1.right_trigger) /3;
+        pFeeder = (-gamepad1.left_trigger + gamepad1.right_trigger) / powerReducer;
 
         left.setPower(pLeft);
         right.setPower(pRight);
         feeder.setPower(pFeeder);
 
-        safety = (gamepad1.right_stick_y / powerReducer);
-        lift.setPower(safety);
+        if(gamepad1.dpad_up){
+            direction = dirUp;
+        }
+        else if(gamepad1.dpad_down){
+            direction = dirDown;
+        }
+        lift.setPower(direction);
 
         /*if(((armPos + gamepad2.left_stick_y / armServoPowerReducer) >= 0) && ((armPos + gamepad2.left_stick_y / armServoPowerReducer) <= 1)){
             armPos = armPos + gamepad2.left_stick_y / armServoPowerReducer;

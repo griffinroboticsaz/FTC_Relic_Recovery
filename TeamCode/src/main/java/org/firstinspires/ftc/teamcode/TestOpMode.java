@@ -84,18 +84,6 @@ public class TestOpMode extends OpMode{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //left.setPower(gamepad1.left_stick_y);
-        //right.setPower(gamepad1.right_stick_y);
 
-         /*if ((lel <= 1) && (gamepad2.right_stick_y <= 0)){
-             lel += (gamepad2.right_stick_y/5);
-
-         } else if ((lel >= -1) && (gamepad2.right_stick_y >= 0)){
-             lel += (gamepad2.right_stick_y/5);
-
-         } else{
-             lel += (gamepad2.right_stick_y/5);
-
-         }*/
     }
 }
