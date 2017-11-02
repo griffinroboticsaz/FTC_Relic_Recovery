@@ -66,6 +66,17 @@ public class MovementLib {
         robot.getRight().setPower(speed);
         robot.getLeft().setPower(speed);
 
+        while (robot.getLeft().isBusy() && robot.getRight().isBusy()){
+            mode.telemetry.addData("Counts Left", robot.getLeft().getCurrentPosition());
+            mode.telemetry.addData("Counts Right", robot.getRight().getCurrentPosition());
+        }
+
+        robot.getRight().setPower(0);
+        robot.getLeft().setPower(0);
+
+        robot.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         /*while (robot.getRight().getCurrentPosition() <= counts && Math.abs(robot.getLeft().getCurrentPosition()) <= counts) {
             mode.telemetry.addData("Counts Left", robot.getLeft().getCurrentPosition());
             mode.telemetry.update();
@@ -139,7 +150,7 @@ public class MovementLib {
                 lastTime = currentTime;
             }
             currentAngle += GyroUtils.calcAngleTurned(robot, deltaTime);
-            motorPower = ((GyroUtils.calcTurnSpeed(currentAngle, angle))) * speed < .33 ? .33 : (GyroUtils.calcTurnSpeed(currentAngle, angle) * speed);
+            motorPower = ((GyroUtils.calcTurnSpeed(currentAngle, angle))) * speed < .15 ? .15 : (GyroUtils.calcTurnSpeed(currentAngle, angle) * speed);
            // motorPower = speed - (currentAngle/ angle) * speed;
             mode.telemetry.addData("speed", motorPower);
             mode.telemetry.addData("gyro", currentAngle);
@@ -149,8 +160,10 @@ public class MovementLib {
             mode.telemetry.update();
             if (motorReversed.equals("left")) {
                 left.setPower(motorPower);
+                right.setPower(-motorPower);
             } else {
                 right.setPower(motorPower);
+                left.setPower(-motorPower);
             }
             if (currentAngle >= Math.abs(angle)) {
                 right.setPower(0);
