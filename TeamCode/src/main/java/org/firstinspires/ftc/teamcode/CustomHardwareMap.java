@@ -62,6 +62,7 @@ public class CustomHardwareMap {
 
     public Servo arm = null;
     public Servo rot = null;
+    public Servo colorServo = null;
 
     public BNO055IMU gyroscope = null;
 
@@ -124,6 +125,7 @@ public class CustomHardwareMap {
         // Define and initialize ALL installed servos.
         arm = hwMap.get(Servo.class, "arm");
         rot = hwMap.get(Servo.class, "rot");
+        colorServo = hwMap.get(Servo.class, "cservo");
         arm.setPosition(MID_SERVO);
         rot.setPosition(MID_SERVO);
     }
