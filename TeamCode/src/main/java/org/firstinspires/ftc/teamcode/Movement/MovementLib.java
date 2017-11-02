@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Movement;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.CustomHardwareMap;
 import org.firstinspires.ftc.teamcode.CustomOpMode.LinearCustomOpMode;
@@ -93,7 +94,7 @@ public class MovementLib {
      * the fields from {@link LinearCustomOpMode}.<p>
      * A custom hardware map must be passed ({@link  CustomHardwareMap}) so that the gyro and the driveMotors can be accessed.
      *
-     * @param robot  the custon hardware map for the components on the robot.
+     * @param robot  the custom hardware map for the components on the robot.
      * @param angle  the number of degrees to be turned by the robot
      * @param speed  the speed at which to turn the robot {0.0, 1.0}
      * @param mode   the OpMode using the method
@@ -106,6 +107,8 @@ public class MovementLib {
         if (angle == 0) {
             throw new IllegalArgumentException("Angle cannot be 0!");
         }
+
+
         double currentAngle = 0;
 
         long lastTime = 0;
@@ -116,6 +119,8 @@ public class MovementLib {
         String motorReversed;
         DcMotor right = robot.getRight();
         DcMotor left = robot.getLeft();
+        right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         double motorPower;
 
@@ -159,6 +164,10 @@ public class MovementLib {
                 break;
             }
         }
+
+        left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
     }
 
 }
