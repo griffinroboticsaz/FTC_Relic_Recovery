@@ -57,18 +57,20 @@ public class MovementLib {
         robot.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
+        robot.getRight().setTargetPosition(-counts);
+        robot.getLeft().setTargetPosition(-counts);
+
         robot.getRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.getLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        robot.getRight().setTargetPosition(counts);
-        robot.getLeft().setTargetPosition(counts);
 
         robot.getRight().setPower(speed);
         robot.getLeft().setPower(speed);
 
-        while (robot.getLeft().isBusy() && robot.getRight().isBusy()){
+        while (robot.getRight().isBusy()){
+            mode.telemetry.addData("Counts", counts);
             mode.telemetry.addData("Counts Left", robot.getLeft().getCurrentPosition());
             mode.telemetry.addData("Counts Right", robot.getRight().getCurrentPosition());
+            mode.telemetry.update();
         }
 
         robot.getRight().setPower(0);

@@ -36,8 +36,6 @@ public class ManualOpMode extends OpMode {
     double colorCheckPos = 1;
     double dirUp = 0.666;
     double dirDown = -0.2;
-    public SoundPool mySound;
-    public int beepID;
 
     @Override
     public void init() {
@@ -54,8 +52,6 @@ public class ManualOpMode extends OpMode {
         arm.setPosition(openPos);
         colorServo.setPosition(colorSetPos);
 
-        mySound = new SoundPool(1, AudioManager.STREAM_MUSIC, 0); // PSM
-        beepID = mySound.load(hardwareMap.appContext, R.raw.Mario, 1); // PSM
     }
     @Override
     public void loop() {
@@ -68,10 +64,9 @@ public class ManualOpMode extends OpMode {
         right.setPower(pRight);
         feeder.setPower(pFeeder);
 
-        if(gamepad1.dpad_up){
+        if (gamepad1.dpad_up) {
             direction = dirUp;
-        }
-        else if(gamepad1.dpad_down){
+        } else if (gamepad1.dpad_down) {
             direction = dirDown;
         }
         lift.setPower(direction);
@@ -79,23 +74,18 @@ public class ManualOpMode extends OpMode {
         /*if(((armPos + gamepad2.left_stick_y / armServoPowerReducer) >= 0) && ((armPos + gamepad2.left_stick_y / armServoPowerReducer) <= 1)){
             armPos = armPos + gamepad2.left_stick_y / armServoPowerReducer;
         }*/
-        if(((rotPos + gamepad2.right_stick_y / servoPowerReducer) >= 0) && ((rotPos + gamepad2.right_stick_y / servoPowerReducer) <= 1)){
+        if (((rotPos + gamepad2.right_stick_y / servoPowerReducer) >= 0) && ((rotPos + gamepad2.right_stick_y / servoPowerReducer) <= 1)) {
             rotPos = rotPos + gamepad2.right_stick_y / servoPowerReducer;
         }
 
         //arm.setPosition(armPos);
         rot.setPosition(rotPos);
 
-        if(gamepad1.a){
+        if (gamepad1.a) {
             arm.setPosition(openPos);
-        }
-        else if(gamepad1.b){
+        } else if (gamepad1.b) {
             arm.setPosition(closedPos);
         }
-        else if(gamepad1.y){
-            mySound.play(beepID,1,1,1,0,1);
-        }
     }
-
 
 }
