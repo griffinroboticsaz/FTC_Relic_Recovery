@@ -108,6 +108,7 @@ public class CustomHardwareMap {
 
         left.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         right.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        lift.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
         left.setPower(0);

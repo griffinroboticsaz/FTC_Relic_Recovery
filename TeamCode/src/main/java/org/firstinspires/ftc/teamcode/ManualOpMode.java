@@ -36,8 +36,6 @@ public class ManualOpMode extends OpMode {
     double colorCheckPos = 1;
     double dirUp = 0.666;
     double dirDown = -0.2;
-    public SoundPool mySound;
-    public int beepID;
 
     @Override
     public void init() {
@@ -53,9 +51,6 @@ public class ManualOpMode extends OpMode {
 
         arm.setPosition(openPos);
         colorServo.setPosition(colorSetPos);
-
-        mySound = new SoundPool(1, AudioManager.STREAM_MUSIC, 0); // PSM
-        beepID = mySound.load(hardwareMap.appContext, R.raw.Mario, 1); // PSM
     }
     @Override
     public void loop() {
@@ -91,9 +86,6 @@ public class ManualOpMode extends OpMode {
         }
         else if(gamepad1.b){
             arm.setPosition(closedPos);
-        }
-        else if(gamepad1.y){
-            mySound.play(beepID,1,1,1,0,1);
         }
     }
 
