@@ -62,7 +62,7 @@ public class Autonomous_OpMode extends LinearCustomOpMode {
         telemetry.update();
 
         robot.getArm().setPosition(0);
-        robot.getRot().setPosition(0);
+        //robot.getRot().setPosition(0);
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
@@ -85,7 +85,7 @@ public class Autonomous_OpMode extends LinearCustomOpMode {
         try {
             //MovementLib.forward(robot, 20, .1, this);
             MovementLib.rotate(robot, 90, .75, this);
-            MovementLib.forward(robot, 20, .1, this);
+            MovementLib.forward(robot, 60, .1, this);
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());
             telemetry.update();

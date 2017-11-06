@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -59,9 +60,9 @@ public class CustomHardwareMap {
 
     public DcMotor lift = null;
     public DcMotor feeder = null;
+    public DcMotor rot = null;
 
     public Servo arm = null;
-    public Servo rot = null;
     public Servo colorServo = null;
 
     public BNO055IMU gyroscope = null;
@@ -97,6 +98,7 @@ public class CustomHardwareMap {
         right = hwMap.get(DcMotor.class, "right");
         lift = hwMap.get(DcMotor.class, "lift");
         feeder = hwMap.get(DcMotor.class, "feeder");
+        rot = hwMap.get(DcMotor.class, "rot");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES; //changed from radians
@@ -106,9 +108,10 @@ public class CustomHardwareMap {
         gyroscope.initialize(parameters);
 
 
-        left.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        right.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        left.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        right.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         lift.setDirection(DcMotor.Direction.REVERSE);
+        rot.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Set all motors to zero power
         left.setPower(0);
@@ -122,13 +125,13 @@ public class CustomHardwareMap {
         right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         feeder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
         arm = hwMap.get(Servo.class, "arm");
-        rot = hwMap.get(Servo.class, "rot");
         colorServo = hwMap.get(Servo.class, "cservo");
         arm.setPosition(MID_SERVO);
-        rot.setPosition(MID_SERVO);
+
     }
 
     public DcMotor getLeft() {
@@ -147,7 +150,7 @@ public class CustomHardwareMap {
         return arm;
     }
 
-    public Servo getRot() {
+    public DcMotor getRot() {
         return rot;
     }
 

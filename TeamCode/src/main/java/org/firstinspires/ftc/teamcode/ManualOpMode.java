@@ -20,18 +20,19 @@ public class ManualOpMode extends OpMode {
     public DcMotor right;
     public DcMotor lift;
     public DcMotor feeder;
+    public DcMotor rot;
     public Servo arm;
-    public Servo rot;
     public Servo colorServo;
     double pLeft;
     double pRight;
     double pFeeder;
+    double pRot;
     double direction;
     double powerReducer = 3;
     double rotPos = 1;
     double servoPowerReducer = 250;
-    double openPos = 0.0;
-    double closedPos = 0.1;
+    double openPos = 0.6;
+    double closedPos = .8;
     double colorSetPos = 0.45;
     double colorCheckPos = 1;
     double dirUp = 0.666;
@@ -45,13 +46,16 @@ public class ManualOpMode extends OpMode {
         feeder = hardwareMap.dcMotor.get("feeder");
         colorServo = hardwareMap.servo.get("cservo");
         arm = hardwareMap.servo.get("arm");
-        rot = hardwareMap.servo.get("rot");
+        rot = hardwareMap.dcMotor.get("rot");
         right.setDirection(DcMotor.Direction.FORWARD);
         left.setDirection(DcMotor.Direction.REVERSE);
 
+        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         arm.setPosition(openPos);
         colorServo.setPosition(colorSetPos);
-   }
+    }
+
     @Override
     public void loop() {
         pLeft = -gamepad1.left_stick_y + gamepad1.left_stick_x;
@@ -59,32 +63,37 @@ public class ManualOpMode extends OpMode {
 
         pFeeder = (-gamepad1.left_trigger + gamepad1.right_trigger) / powerReducer;
 
+        pRot = gamepad1.right_stick_y /3;
+
         left.setPower(pLeft);
         right.setPower(pRight);
         feeder.setPower(pFeeder);
 
-        if(gamepad1.dpad_up){
-            direction = dirUp;
-        }
-        else if(gamepad1.dpad_down){
+        if (gamepad1.dpad_down) {
             direction = dirDown;
+        } else if (gamepad1.dpad_up) {
+            direction = dirUp;
+        } else {
+            direction = 0;
         }
+
         lift.setPower(direction);
+        rot.setPower(pRot);
 
         /*if(((armPos + gamepad2.left_stick_y / armServoPowerReducer) >= 0) && ((armPos + gamepad2.left_stick_y / armServoPowerReducer) <= 1)){
             armPos = armPos + gamepad2.left_stick_y / armServoPowerReducer;
         }*/
-        if(((rotPos + gamepad2.right_stick_y / servoPowerReducer) >= 0) && ((rotPos + gamepad2.right_stick_y / servoPowerReducer) <= 1)){
+        /*if(((rotPos + gamepad2.right_stick_y / servoPowerReducer) >= 0) && ((rotPos + gamepad2.right_stick_y / servoPowerReducer) <= 1)){
             rotPos = rotPos + gamepad2.right_stick_y / servoPowerReducer;
-        }
+        }*/
+
+        telemetry.addData("rotation power" , rot.getPower());
 
         //arm.setPosition(armPos);
-        rot.setPosition(rotPos);
 
-        if(gamepad1.a){
+        if (gamepad1.a) {
             arm.setPosition(openPos);
-        }
-        else if(gamepad1.b){
+        } else if (gamepad1.b) {
             arm.setPosition(closedPos);
         }
     }

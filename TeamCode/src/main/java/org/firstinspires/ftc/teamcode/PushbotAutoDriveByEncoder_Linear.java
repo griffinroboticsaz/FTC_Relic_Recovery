@@ -114,7 +114,7 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, -24, -24, 10.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
         robot.arm.setPosition(0.5);            // S4: Stop and close the claw.
-        robot.rot.setPosition(0.5);
+       // robot.rot.setPosition(0.5);
         sleep(1000);     // pause for servos to move
 
         telemetry.addData("Path", "Complete");
