@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Movement;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -48,7 +49,6 @@ public class MovementLib {
     public static <Mode extends LinearCustomOpMode> void forward(CustomHardwareMap robot, double inches, double speed, Mode mode) {
         mode.telemetry.addData("Working!", "");
         int counts = EncoderUtils.calcCounts(inches);
-        mode.telemetry.addData("Counts", counts);
         robot.getRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.getLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -57,8 +57,8 @@ public class MovementLib {
         robot.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-        robot.getRight().setTargetPosition(-counts);
-        robot.getLeft().setTargetPosition(-counts);
+        robot.getRight().setTargetPosition(counts * 4);
+        robot.getLeft().setTargetPosition(counts * 4);
 
         robot.getRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.getLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -66,7 +66,7 @@ public class MovementLib {
         robot.getRight().setPower(speed);
         robot.getLeft().setPower(speed);
 
-        while (robot.getRight().isBusy()){
+        while (robot.getRight().isBusy() || robot.getLeft().isBusy()){
             mode.telemetry.addData("Counts", counts);
             mode.telemetry.addData("Counts Left", robot.getLeft().getCurrentPosition());
             mode.telemetry.addData("Counts Right", robot.getRight().getCurrentPosition());
@@ -79,23 +79,6 @@ public class MovementLib {
         robot.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        /*while (robot.getRight().getCurrentPosition() <= counts && Math.abs(robot.getLeft().getCurrentPosition()) <= counts) {
-            mode.telemetry.addData("Counts Left", robot.getLeft().getCurrentPosition());
-            mode.telemetry.update();
-            if (robot.getRight().getCurrentPosition() >= counts && (Math.abs(robot.getLeft().getCurrentPosition()) >= counts)) {
-                robot.getRight().setPower(0);
-                robot.getLeft().setPower(0);
-                robot.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.getRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.getLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-                break;
-            }
-            if (mode.isStopRequested()) {
-                break;
-            }
-        }*/
     }
 
     /**
@@ -182,6 +165,14 @@ public class MovementLib {
 
         left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+    }
+
+    public static<Mode extends OpMode> void rotateArm (CustomHardwareMap robot, double angle, double speed, Mode mode){
+        robot.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        int countsPerRotation = 1120;
+      //  int counts =  360/countsPerRotation * angle;
+
 
     }
 
