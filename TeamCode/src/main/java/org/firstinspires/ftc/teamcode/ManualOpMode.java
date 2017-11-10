@@ -16,87 +16,91 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp(name = "manual", group = "TeleOp")
 //@Disabled
 public class ManualOpMode extends OpMode {
-    public DcMotor left;
-    public DcMotor right;
-    public DcMotor lift;
-    public DcMotor feeder;
-    public DcMotor rot;
-    public Servo arm;
-    public Servo colorServo;
-    double pLeft;
-    double pRight;
-    double pFeeder;
-    double pRot;
-    double direction;
-    double powerReducer = 3;
-    double rotPos = 1;
-    double servoPowerReducer = 250;
-    double openPos = 0.6;
-    double closedPos = .8;
-    double colorSetPos = 0.45;
-    double colorCheckPos = 1;
-    double dirUp = 0.666;
-    double dirDown = -0.2;
+    private DcMotor leftMotor;
+    private DcMotor rightMotor;
+    private DcMotor liftMotor;
+    private DcMotor feeder;
+    private DcMotor Rotator;
+    private Servo armMotor;
+    private Servo colorServo;
+    private double powerLeft;
+    private double powerRight;
+    private double powerFeeder;
+    private double powerRotator;
+    private double liftDirection;
+    private double powerReducer = 3;
+    private double openPosition = 0.6;
+    private double closedPosition = .8;
+    private double colorSetPosition = 0.45;
+    private double directionUp = 0.666;
+    private double directionDown = -0.2;
 
     @Override
     public void init() {
-        left = hardwareMap.dcMotor.get("left");
-        right = hardwareMap.dcMotor.get("right");
-        lift = hardwareMap.dcMotor.get("lift");
+        leftMotor = hardwareMap.dcMotor.get("left");
+        rightMotor = hardwareMap.dcMotor.get("right");
+        liftMotor = hardwareMap.dcMotor.get("lift");
         feeder = hardwareMap.dcMotor.get("feeder");
         colorServo = hardwareMap.servo.get("cservo");
-        arm = hardwareMap.servo.get("arm");
-        rot = hardwareMap.dcMotor.get("rot");
-        right.setDirection(DcMotor.Direction.FORWARD);
-        left.setDirection(DcMotor.Direction.REVERSE);
+        armMotor = hardwareMap.servo.get("arm");
+        Rotator = hardwareMap.dcMotor.get("rot");
+        rightMotor.setDirection(DcMotor.Direction.FORWARD);
+        leftMotor.setDirection(DcMotor.Direction.REVERSE);
 
-        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        arm.setPosition(openPos);
-        colorServo.setPosition(colorSetPos);
+        armMotor.setPosition(openPosition);
+        colorServo.setPosition(colorSetPosition);
     }
 
     @Override
     public void loop() {
-        pLeft = -gamepad1.left_stick_y + gamepad1.left_stick_x;
-        pRight = -gamepad1.left_stick_y - gamepad1.left_stick_x;
+        //powerLeft = -gamepad1.left_stick_y + gamepad1.left_stick_x;
+        //powerRight = -gamepad1.left_stick_y - gamepad1.left_stick_x;
 
-        pFeeder = (-gamepad1.left_trigger + gamepad1.right_trigger) / powerReducer;
+        //powerFeeder = (-gamepad1.left_trigger + gamepad1.right_trigger) / powerReducer;
 
-        pRot = gamepad1.right_stick_y /3;
+        //powerRotator = gamepad1.right_stick_y;
 
-        left.setPower(pLeft);
-        right.setPower(pRight);
-        feeder.setPower(pFeeder);
+        leftMotor.setPower(power("left"));
+        rightMotor.setPower(power("right"));
+        feeder.setPower(power("feeder"));
 
         if (gamepad1.dpad_down) {
-            direction = dirDown;
+            liftDirection = directionDown;
         } else if (gamepad1.dpad_up) {
-            direction = dirUp;
+            liftDirection = directionUp;
         } else {
-            direction = 0;
+            liftDirection = 0;
         }
 
-        lift.setPower(direction);
-        rot.setPower(pRot);
+        liftMotor.setPower(liftDirection);
+        Rotator.setPower(power("rotator"));
 
-        /*if(((armPos + gamepad2.left_stick_y / armServoPowerReducer) >= 0) && ((armPos + gamepad2.left_stick_y / armServoPowerReducer) <= 1)){
-            armPos = armPos + gamepad2.left_stick_y / armServoPowerReducer;
-        }*/
-        /*if(((rotPos + gamepad2.right_stick_y / servoPowerReducer) >= 0) && ((rotPos + gamepad2.right_stick_y / servoPowerReducer) <= 1)){
-            rotPos = rotPos + gamepad2.right_stick_y / servoPowerReducer;
-        }*/
+        telemetry.addData("rotation power" , Rotator.getPower());
 
-        telemetry.addData("rotation power" , rot.getPower());
-
-        //arm.setPosition(armPos);
+        //armMotor.setPosition(armPos);
 
         if (gamepad1.a) {
-            arm.setPosition(openPos);
+            armMotor.setPosition(openPosition);
         } else if (gamepad1.b) {
-            arm.setPosition(closedPos);
+            armMotor.setPosition(closedPosition);
         }
     }
-
+    private double power(String side){
+        if (side.equals("left")) {
+            return -gamepad1.left_stick_y + gamepad1.left_stick_x;
+        }
+        else if (side.equals("right")){
+            return -gamepad1.left_stick_y - gamepad1.left_stick_x;
+        }
+        else if (side.equals("feeder")) {
+            return (-gamepad1.left_trigger + gamepad1.right_trigger) / powerReducer;
+        }
+        else if (side.equals("rotator")) {
+            return gamepad1.right_stick_y;
+        }
+        else throw new IllegalArgumentException("There is no such motor!");
+    }
 
 }
