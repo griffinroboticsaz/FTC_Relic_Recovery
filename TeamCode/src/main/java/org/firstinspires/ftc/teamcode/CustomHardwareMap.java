@@ -72,6 +72,9 @@ public class CustomHardwareMap {
     public static final double ARM_UP_POWER = 0.45;
     public static final double ARM_DOWN_POWER = -0.45;
 
+    private double openPos = 0.6;
+    private double closedPos = .8;
+
     public static CustomHardwareMap getInstance() {
         return instance;
     }

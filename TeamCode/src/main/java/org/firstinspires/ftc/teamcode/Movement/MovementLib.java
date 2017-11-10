@@ -182,7 +182,8 @@ public class MovementLib {
         robot.getRot().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-    public static<Mode extends OpMode> void closeArm (CustomHardwareMap robot, Mode mode)
+    public static<Mode extends OpMode> void closeArm (CustomHardwareMap robot, Mode mode){
 
+    }
 
 }
