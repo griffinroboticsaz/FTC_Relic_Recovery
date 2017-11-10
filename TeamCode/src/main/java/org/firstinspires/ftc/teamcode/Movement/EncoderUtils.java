@@ -7,7 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  */
 
 public class EncoderUtils {
-    private static final int COUNTS_PER_ROTATION = 420;
+    private static final int COUNTS_PER_ROTATION_60 = 420;
+    private static final int COUNTS_PER_ROTATION_40 = 1120;
+    private static final int COUNTS_PER_ROTATION_20 = 420;
     private static final double GEAR_RATIO = 2d;
     private static final double PI = Math.PI;
     private static final double WHEEL_CIRC = 3.875d * PI;
@@ -21,7 +23,7 @@ public class EncoderUtils {
      * @return distance
      */
     public static double calcDistance(int counts) {
-        return (counts / COUNTS_PER_ROTATION) * GEAR_RATIO * WHEEL_CIRC;
+        return (counts / COUNTS_PER_ROTATION_60) * GEAR_RATIO * WHEEL_CIRC;
     }
 
     /**
@@ -31,7 +33,7 @@ public class EncoderUtils {
      * @return Encoder counts
      */
     public static int calcCounts(double inches) {
-        return (int) (inches * COUNTS_PER_ROTATION / (GEAR_RATIO * WHEEL_CIRC));
+        return (int) (inches * COUNTS_PER_ROTATION_60 / (GEAR_RATIO * WHEEL_CIRC));
     }
 
     /**

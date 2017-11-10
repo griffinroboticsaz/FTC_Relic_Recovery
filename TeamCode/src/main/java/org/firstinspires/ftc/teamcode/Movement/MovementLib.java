@@ -171,9 +171,18 @@ public class MovementLib {
     public static<Mode extends OpMode> void rotateArm (CustomHardwareMap robot, double angle, double speed, Mode mode){
         robot.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         int countsPerRotation = 1120;
-      //  int counts =  360/countsPerRotation * angle;
-
-
+        int counts = (int) (angle * 360 / countsPerRotation);
+        robot.getRot().setTargetPosition(counts);
+        robot.getRot().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.getRot().setPower(1);
+        while (robot.getRot().isBusy()){
+            mode.telemetry.addData("Moving rotation arm to", counts);
+        }
+        robot.getRot().setPower(0);
+        robot.getRot().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+    public static<Mode extends OpMode> void closeArm (CustomHardwareMap robot, Mode mode)
+
 
 }
