@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 /**
  * Created by Griffins on 9/30/2017.
@@ -19,16 +20,13 @@ public class ManualOpMode extends OpMode {
     private DcMotor leftMotor;
     private DcMotor rightMotor;
     private DcMotor liftMotor;
-    private DcMotor feeder;
+    private CRServo leftFeeder;
+    private CRServo rightFeeder;
     private DcMotor Rotator;
     private Servo armMotor;
     private Servo colorServo;
-    private double powerLeft;
-    private double powerRight;
-    private double powerFeeder;
-    private double powerRotator;
     private double liftDirection;
-    private double powerReducer = 3;
+    private double powerReducer = 2;
     private double openPosition = 0.6;
     private double closedPosition = .8;
     private double colorSetPosition = 0.45;
@@ -40,7 +38,8 @@ public class ManualOpMode extends OpMode {
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
         liftMotor = hardwareMap.dcMotor.get("lift");
-        feeder = hardwareMap.dcMotor.get("feeder");
+        leftFeeder = hardwareMap.crservo.get("leftFeeder");
+        rightFeeder = hardwareMap.crservo.get("rightFeeder");
         colorServo = hardwareMap.servo.get("cservo");
         armMotor = hardwareMap.servo.get("arm");
         Rotator = hardwareMap.dcMotor.get("rot");
@@ -64,7 +63,8 @@ public class ManualOpMode extends OpMode {
 
         leftMotor.setPower(power("left"));
         rightMotor.setPower(power("right"));
-        feeder.setPower(power("feeder"));
+        leftFeeder.setPower(power("feeders"));
+        rightFeeder.setPower(-power("feeders"));
 
         if (gamepad1.dpad_down) {
             liftDirection = directionDown;
@@ -88,7 +88,7 @@ public class ManualOpMode extends OpMode {
         }
     }
     private double power(String side){
-        if (side.equals("left")) {
+        /*if (side.equals("left")) {
             return -gamepad1.left_stick_y + gamepad1.left_stick_x;
         }
         else if (side.equals("right")){
@@ -100,7 +100,15 @@ public class ManualOpMode extends OpMode {
         else if (side.equals("rotator")) {
             return gamepad1.right_stick_y;
         }
-        else throw new IllegalArgumentException("There is no such motor!");
+        else throw new IllegalArgumentException("There is no such motor!");*/
+
+        switch (side){
+            case "left": return -gamepad1.left_stick_y + gamepad1.left_stick_x;
+            case "right": return -gamepad1.left_stick_y - gamepad1.left_stick_x;
+            case "feeders": return ((-gamepad1.left_trigger + gamepad1.right_trigger) / powerReducer) + 0.5;
+            case "rotator": return gamepad1.right_stick_y;
+            default: throw new IllegalArgumentException("There is no such motor!");
+        }
     }
 
 }

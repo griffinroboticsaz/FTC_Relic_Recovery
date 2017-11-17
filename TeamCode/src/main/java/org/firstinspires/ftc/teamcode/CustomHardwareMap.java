@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gyroscope;
@@ -59,8 +60,10 @@ public class CustomHardwareMap {
     public DcMotor right = null;
 
     public DcMotor lift = null;
-    public DcMotor feeder = null;
     public DcMotor rot = null;
+
+    public CRServo leftFeeder = null;
+    public CRServo rightFeeder = null;
 
     public Servo arm = null;
     public Servo colorServo = null;
@@ -100,7 +103,8 @@ public class CustomHardwareMap {
         left = hwMap.get(DcMotor.class, "left");
         right = hwMap.get(DcMotor.class, "right");
         lift = hwMap.get(DcMotor.class, "lift");
-        feeder = hwMap.get(DcMotor.class, "feeder");
+        leftFeeder = hwMap.get(CRServo.class, "leftFeeder");
+        rightFeeder = hwMap.get(CRServo.class, "rightFeeder");
         rot = hwMap.get(DcMotor.class, "rot");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -120,14 +124,14 @@ public class CustomHardwareMap {
         left.setPower(0);
         right.setPower(0);
         lift.setPower(0);
-        feeder.setPower(0);
+        leftFeeder.setPower(0.5);
+        rightFeeder.setPower(0.5);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        feeder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
@@ -140,27 +144,22 @@ public class CustomHardwareMap {
     public DcMotor getLeft() {
         return left;
     }
-
     public DcMotor getRight() {
         return right;
     }
-
     public DcMotor getLift() {
         return lift;
     }
-
     public Servo getArm() {
         return arm;
     }
-
     public DcMotor getRot() {
         return rot;
     }
-
-    public DcMotor getFeeder() {
-        return feeder;
+    public CRServo getLeftFeeder() {
+        return leftFeeder;
     }
-
+    public CRServo getRightFeeder() { return rightFeeder; }
     public BNO055IMU getGyroscope() {
         return gyroscope;
     }
