@@ -30,14 +30,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.CustomOpMode.LinearCustomOpMode;
-import org.firstinspires.ftc.teamcode.Movement.AppendageLib;
 import org.firstinspires.ftc.teamcode.Movement.MovementLib;
-import org.firstinspires.ftc.teamcode.SensorUtils.Timer;
 
 
 /**
@@ -83,9 +78,9 @@ public class Autonomous_OpMode extends LinearCustomOpMode {
 
         // run until the end of the match (driver presses STOP)
         try {
-            //MovementLib.forward(robot, 20, .1, this);
-           // MovementLib.rotate(robot, 90, .75, this);
-            MovementLib.forward(robot, 20, .1, this);
+            //MovementLib.forward(20, .1, this);
+           // MovementLib.rotate(90, .75, this);
+            MovementLib.forward(20, .1, this);
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());
             telemetry.update();

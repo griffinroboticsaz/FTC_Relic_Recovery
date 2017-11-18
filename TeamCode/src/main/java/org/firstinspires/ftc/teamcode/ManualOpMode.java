@@ -27,8 +27,8 @@ public class ManualOpMode extends OpMode {
     private Servo colorServo;
     private double liftDirection;
     private double powerReducer = 2;
-    private double openPosition = 0.6;
-    private double closedPosition = .8;
+    private double openPosition = 0.37;
+    private double closedPosition = 0.5;
     private double colorSetPosition = 0.45;
     private double directionUp = 0.666;
     private double directionDown = -0.2;
@@ -105,7 +105,9 @@ public class ManualOpMode extends OpMode {
         switch (side){
             case "left": return -gamepad1.left_stick_y + gamepad1.left_stick_x;
             case "right": return -gamepad1.left_stick_y - gamepad1.left_stick_x;
-            case "feeders": return -gamepad1.left_trigger + gamepad1.right_trigger;
+            case "feeders": if (gamepad1.right_bumper) {return 1;}
+                else if (gamepad1.left_bumper) {return -1;}
+                else {return 0;}
             case "rotator": return gamepad1.right_stick_y;
             default: throw new IllegalArgumentException("There is no such motor!");
         }

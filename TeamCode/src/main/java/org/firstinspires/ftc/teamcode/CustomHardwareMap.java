@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -70,13 +71,12 @@ public class CustomHardwareMap {
 
     public BNO055IMU gyroscope = null;
 
+    public NormalizedColorSensor colorSensor = null;
+
     public static final double MID_SERVO = 0.5;
 
     public static final double ARM_UP_POWER = 0.45;
     public static final double ARM_DOWN_POWER = -0.45;
-
-    private double openPos = 0.6;
-    private double closedPos = .8;
 
     public static CustomHardwareMap getInstance() {
         return instance;
@@ -162,6 +162,9 @@ public class CustomHardwareMap {
     public CRServo getRightFeeder() { return rightFeeder; }
     public BNO055IMU getGyroscope() {
         return gyroscope;
+    }
+    public Servo getColorServo() {
+        return colorServo;
     }
 }
 

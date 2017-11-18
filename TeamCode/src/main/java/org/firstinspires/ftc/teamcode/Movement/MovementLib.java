@@ -8,12 +8,8 @@ import org.firstinspires.ftc.teamcode.CustomHardwareMap;
 import org.firstinspires.ftc.teamcode.CustomOpMode.LinearCustomOpMode;
 import org.firstinspires.ftc.teamcode.SensorUtils.GyroUtils;
 
-/**
- * Created by Justin on 10/16/2017.
- */
-
 public class MovementLib {
-
+    public static final CustomHardwareMap ROBOT = CustomHardwareMap.instance;
     private MovementLib() {
     }
 
@@ -46,38 +42,38 @@ public class MovementLib {
         }
 
     }*/
-    public static <Mode extends LinearCustomOpMode> void forward(CustomHardwareMap robot, double inches, double speed, Mode mode) {
+    public static <Mode extends LinearCustomOpMode> void forward(double inches, double speed, Mode mode) {
         mode.telemetry.addData("Working!", "");
         int counts = EncoderUtils.calcCounts(inches);
-        robot.getRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.getLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ROBOT.getRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ROBOT.getLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
-        robot.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ROBOT.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ROBOT.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-        robot.getRight().setTargetPosition(counts * 4);
-        robot.getLeft().setTargetPosition(counts * 4);
+        ROBOT.getRight().setTargetPosition(counts * 4);
+        ROBOT.getLeft().setTargetPosition(counts * 4);
 
-        robot.getRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.getLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        ROBOT.getRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        ROBOT.getLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.getRight().setPower(speed);
-        robot.getLeft().setPower(speed);
+        ROBOT.getRight().setPower(speed);
+        ROBOT.getLeft().setPower(speed);
 
-        while (robot.getRight().isBusy() || robot.getLeft().isBusy()){
+        while (ROBOT.getRight().isBusy() || ROBOT.getLeft().isBusy()){
             mode.telemetry.addData("Counts", counts);
-            mode.telemetry.addData("Counts Left", robot.getLeft().getCurrentPosition());
-            mode.telemetry.addData("Counts Right", robot.getRight().getCurrentPosition());
+            mode.telemetry.addData("Counts Left", ROBOT.getLeft().getCurrentPosition());
+            mode.telemetry.addData("Counts Right", ROBOT.getRight().getCurrentPosition());
             mode.telemetry.update();
         }
 
-        robot.getRight().setPower(0);
-        robot.getLeft().setPower(0);
+        ROBOT.getRight().setPower(0);
+        ROBOT.getLeft().setPower(0);
 
-        robot.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ROBOT.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ROBOT.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
@@ -90,7 +86,6 @@ public class MovementLib {
      * the fields from {@link LinearCustomOpMode}.<p>
      * A custom hardware map must be passed ({@link  CustomHardwareMap}) so that the gyro and the driveMotors can be accessed.
      *
-     * @param robot  the custom hardware map for the components on the robot.
      * @param angle  the number of degrees to be turned by the robot
      * @param speed  the speed at which to turn the robot {0.0, 1.0}
      * @param mode   the OpMode using the method
@@ -99,7 +94,7 @@ public class MovementLib {
      * @see GyroUtils#calcTurnSpeed(double, double)
      * @see GyroUtils#calcAngleTurned(CustomHardwareMap, long)
      */
-    public static <Mode extends LinearCustomOpMode> void rotate(CustomHardwareMap robot, double angle, double speed, Mode mode) {
+    public static <Mode extends LinearCustomOpMode> void rotate(double angle, double speed, Mode mode) {
         if (angle == 0) {
             throw new IllegalArgumentException("Angle cannot be 0!");
         }
@@ -113,8 +108,8 @@ public class MovementLib {
 
 
         String motorReversed;
-        DcMotor right = robot.getRight();
-        DcMotor left = robot.getLeft();
+        DcMotor right = ROBOT.getRight();
+        DcMotor left = ROBOT.getLeft();
         right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -134,7 +129,7 @@ public class MovementLib {
                 deltaTime = currentTime - lastTime;
                 lastTime = currentTime;
             }
-            currentAngle += GyroUtils.calcAngleTurned(robot, deltaTime);
+            currentAngle += GyroUtils.calcAngleTurned(ROBOT, deltaTime);
             motorPower = ((GyroUtils.calcTurnSpeed(currentAngle, angle))) * speed < .15 ? .15 : (GyroUtils.calcTurnSpeed(currentAngle, angle) * speed);
            // motorPower = speed - (currentAngle/ angle) * speed;
             mode.telemetry.addData("speed", motorPower);
@@ -168,22 +163,30 @@ public class MovementLib {
 
     }
 
-    public static<Mode extends OpMode> void rotateArm (CustomHardwareMap robot, double angle, double speed, Mode mode){
-        robot.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    public static<Mode extends LinearCustomOpMode> void rotateArm (double angle, double speed, Mode mode){
+        ROBOT.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         int countsPerRotation = 1120;
         int counts = (int) (angle * 360 / countsPerRotation);
-        robot.getRot().setTargetPosition(counts);
-        robot.getRot().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.getRot().setPower(1);
-        while (robot.getRot().isBusy()){
+        ROBOT.getRot().setTargetPosition(counts);
+        ROBOT.getRot().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        ROBOT.getRot().setPower(1);
+        while (ROBOT.getRot().isBusy()){
             mode.telemetry.addData("Moving rotation arm to", counts);
         }
-        robot.getRot().setPower(0);
-        robot.getRot().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ROBOT.getRot().setPower(0);
+        ROBOT.getRot().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ROBOT.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-    public static<Mode extends OpMode> void closeArm (CustomHardwareMap robot, Mode mode){
-
+    public static<Mode extends LinearCustomOpMode> void closeArm (Mode mode){
+        ROBOT.getArm().setPosition(0.5);
     }
-
+    public static<Mode extends LinearCustomOpMode> void openArm (Mode mode){
+        ROBOT.getArm().setPosition(0.37);
+    }
+    public static<Mode extends LinearCustomOpMode> void lowerCServo (Mode mode){
+        ROBOT.getColorServo().setPosition(0.1);
+    }
+    public static<Mode extends LinearCustomOpMode> void raiseCServo (Mode mode){
+        ROBOT.getColorServo().setPosition(0.45);
+    }
 }
