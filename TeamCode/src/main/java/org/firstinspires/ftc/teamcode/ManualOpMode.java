@@ -105,7 +105,7 @@ public class ManualOpMode extends OpMode {
         switch (side){
             case "left": return -gamepad1.left_stick_y + gamepad1.left_stick_x;
             case "right": return -gamepad1.left_stick_y - gamepad1.left_stick_x;
-            case "feeders": return ((-gamepad1.left_trigger + gamepad1.right_trigger) / powerReducer) + 0.5;
+            case "feeders": return -gamepad1.left_trigger + gamepad1.right_trigger;
             case "rotator": return gamepad1.right_stick_y;
             default: throw new IllegalArgumentException("There is no such motor!");
         }
