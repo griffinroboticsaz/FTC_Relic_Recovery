@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.SwitchableLight;
 
 import org.firstinspires.ftc.teamcode.CustomOpMode.LinearCustomOpMode;
 import org.firstinspires.ftc.teamcode.Movement.MovementLib;
@@ -56,7 +57,8 @@ public class Autonomous_OpMode extends LinearCustomOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        robot.getArm().setPosition(0);
+
+        //robot.getArm().setPosition(0);
         //robot.getRot().setPosition(0);
 
         // Initialize the hardware variables. Note that the strings used here as parameters
@@ -76,11 +78,16 @@ public class Autonomous_OpMode extends LinearCustomOpMode {
         waitForStart();
         runtime.reset();
 
+        while (opModeIsActive()){
+            int color = robot.getColorSensor().argb();
+            telemetry.addData("Hue Value", color);
+        }
+
         // run until the end of the match (driver presses STOP)
         try {
-            //MovementLib.forward(20, .1, this);
-           // MovementLib.rotate(90, .75, this);
-            MovementLib.forward(20, .1, this);
+            // MovementLib.forward(20, .1, this);
+            // MovementLib.rotate(90, .75, this);
+            // MovementLib.forward(20, .1, this);
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());
             telemetry.update();

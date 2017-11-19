@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gyroscope;
@@ -71,7 +72,7 @@ public class CustomHardwareMap {
 
     public BNO055IMU gyroscope = null;
 
-    public NormalizedColorSensor colorSensor = null;
+    public ColorSensor colorSensor = null;
 
     public static final double MID_SERVO = 0.5;
 
@@ -105,6 +106,9 @@ public class CustomHardwareMap {
         lift = hwMap.get(DcMotor.class, "lift");
         leftFeeder = hwMap.get(CRServo.class, "leftFeeder");
         rightFeeder = hwMap.get(CRServo.class, "rightFeeder");
+        colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
+        colorServo = hwMap.get(Servo.class, "colorServo");
+        arm = hwMap.get(Servo.class, "arm");
         rot = hwMap.get(DcMotor.class, "rot");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -113,7 +117,6 @@ public class CustomHardwareMap {
 
         gyroscope = hwMap.get(BNO055IMU.class, "imu");
         gyroscope.initialize(parameters);
-
 
         left.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         right.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
@@ -124,8 +127,8 @@ public class CustomHardwareMap {
         left.setPower(0);
         right.setPower(0);
         lift.setPower(0);
-        leftFeeder.setPower(0.5);
-        rightFeeder.setPower(0.5);
+        leftFeeder.setPower(0);
+        rightFeeder.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -136,7 +139,6 @@ public class CustomHardwareMap {
 
         // Define and initialize ALL installed servos.
         arm = hwMap.get(Servo.class, "arm");
-        colorServo = hwMap.get(Servo.class, "cservo");
         arm.setPosition(MID_SERVO);
 
     }
@@ -166,5 +168,6 @@ public class CustomHardwareMap {
     public Servo getColorServo() {
         return colorServo;
     }
+    public ColorSensor getColorSensor() { return colorSensor; }
 }
 

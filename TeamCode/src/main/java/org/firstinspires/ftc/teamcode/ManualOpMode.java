@@ -1,15 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.media.AudioManager;
-import android.media.SoundPool;
-
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Griffins on 9/30/2017.
@@ -29,27 +24,29 @@ public class ManualOpMode extends OpMode {
     private double powerReducer = 2;
     private double openPosition = 0.37;
     private double closedPosition = 0.5;
-    private double colorSetPosition = 0.45;
+    private double colorLowered = 0.1;
+    private double colorRaised = 0.45;
     private double directionUp = 0.666;
     private double directionDown = -0.2;
+    private CustomHardwareMap chwMap = CustomHardwareMap.getInstance();
 
     @Override
     public void init() {
-        leftMotor = hardwareMap.dcMotor.get("left");
-        rightMotor = hardwareMap.dcMotor.get("right");
-        liftMotor = hardwareMap.dcMotor.get("lift");
-        leftFeeder = hardwareMap.crservo.get("leftFeeder");
-        rightFeeder = hardwareMap.crservo.get("rightFeeder");
-        colorServo = hardwareMap.servo.get("cservo");
-        armMotor = hardwareMap.servo.get("arm");
-        Rotator = hardwareMap.dcMotor.get("rot");
+        leftMotor = chwMap.getLeft();
+        rightMotor = chwMap.getRight();
+        liftMotor = chwMap.getLift();
+        leftFeeder = chwMap.getLeftFeeder();
+        rightFeeder = chwMap.getRightFeeder();
+        colorServo = chwMap.getColorServo();
+        armMotor = chwMap.getArm();
+        Rotator = chwMap.getRot();
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
 
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         armMotor.setPosition(openPosition);
-        colorServo.setPosition(colorSetPosition);
+        colorServo.setPosition(colorRaised);
     }
 
     @Override
@@ -85,6 +82,11 @@ public class ManualOpMode extends OpMode {
             armMotor.setPosition(openPosition);
         } else if (gamepad1.b) {
             armMotor.setPosition(closedPosition);
+        }
+        if (gamepad1.x) {
+            colorServo.setPosition(colorRaised);
+        } else if (gamepad1.y) {
+            colorServo.setPosition(colorLowered);
         }
     }
     private double power(String side){
