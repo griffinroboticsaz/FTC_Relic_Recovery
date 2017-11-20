@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 /**
  * Created by Griffins on 9/30/2017.
  */
@@ -32,17 +34,23 @@ public class ManualOpMode extends OpMode {
 
     @Override
     public void init() {
-        leftMotor = chwMap.getLeft();
-        rightMotor = chwMap.getRight();
-        liftMotor = chwMap.getLift();
-        leftFeeder = chwMap.getLeftFeeder();
-        rightFeeder = chwMap.getRightFeeder();
-        colorServo = chwMap.getColorServo();
-        armMotor = chwMap.getArm();
-        Rotator = chwMap.getRot();
-        rightMotor.setDirection(DcMotor.Direction.FORWARD);
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-
+        chwMap.init(hardwareMap);
+        try {
+            leftMotor = chwMap.getLeft();
+            rightMotor = chwMap.getRight();
+            liftMotor = chwMap.getLift();
+            leftFeeder = chwMap.getLeftFeeder();
+            rightFeeder = chwMap.getRightFeeder();
+            colorServo = chwMap.getColorServo();
+            armMotor = chwMap.getArm();
+            Rotator = chwMap.getRot();
+            rightMotor.setDirection(DcMotor.Direction.FORWARD);
+            leftMotor.setDirection(DcMotor.Direction.REVERSE);
+        }catch(NullPointerException NPE){
+            telemetry.addData("Error", NPE.getMessage());
+            telemetry.addData("right", rightMotor.toString());
+            telemetry.addData("left", leftMotor.toString());
+        }
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         armMotor.setPosition(openPosition);
