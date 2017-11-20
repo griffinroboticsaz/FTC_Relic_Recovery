@@ -28,8 +28,8 @@ public class ManualOpMode extends OpMode {
     private double closedPosition = 0.5;
     private double colorLowered = 0.1;
     private double colorRaised = 0.45;
-    private double directionUp = 0.666;
-    private double directionDown = -0.2;
+    private double directionDown = 0.2;
+    private double directionUp = -0.667;
     private CustomHardwareMap chwMap = CustomHardwareMap.getInstance();
 
     @Override

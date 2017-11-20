@@ -81,16 +81,17 @@ public class Autonomous_OpMode extends LinearCustomOpMode {
         while (opModeIsActive()){
             int color = robot.getColorSensor().argb();
             telemetry.addData("Hue Value", color);
+            telemetry.update();
         }
 
         // run until the end of the match (driver presses STOP)
-        try {
+        /*try {
             // MovementLib.forward(20, .1, this);
             // MovementLib.rotate(90, .75, this);
             // MovementLib.forward(20, .1, this);
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());
             telemetry.update();
-        }
+        }*/
     }
 }
