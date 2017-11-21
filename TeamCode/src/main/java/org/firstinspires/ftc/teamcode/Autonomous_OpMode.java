@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
 
 import org.firstinspires.ftc.teamcode.CustomOpMode.LinearCustomOpMode;
@@ -77,10 +78,15 @@ public class Autonomous_OpMode extends LinearCustomOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
+        ColorSensor sensor = robot.getColorSensor();
+        sensor.enableLed(false);
 
         while (opModeIsActive()){
-            int color = robot.getColorSensor().argb();
-            telemetry.addData("Hue Value", color);
+            int rColor = robot.getColorSensor().red();
+            int bColor = robot.getColorSensor().blue();
+            telemetry.addData("Blue",bColor);
+            telemetry.addData("Red",rColor);
+            telemetry.update();
         }
 
         // run until the end of the match (driver presses STOP)

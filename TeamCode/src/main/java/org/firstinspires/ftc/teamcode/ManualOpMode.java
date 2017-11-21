@@ -24,12 +24,12 @@ public class ManualOpMode extends OpMode {
     private Servo colorServo;
     private double liftDirection;
     private double powerReducer = 2;
-    private double openPosition = 0.37;
+    private double openPosition = 0.4;
     private double closedPosition = 0.5;
     private double colorLowered = 0.1;
     private double colorRaised = 0.45;
-    private double directionUp = 0.666;
-    private double directionDown = -0.2;
+    private double directionDown = 0.2;
+    private double directionUp = -0.667;
     private CustomHardwareMap chwMap = CustomHardwareMap.getInstance();
 
     @Override
@@ -51,7 +51,8 @@ public class ManualOpMode extends OpMode {
             telemetry.addData("right", rightMotor.toString());
             telemetry.addData("left", leftMotor.toString());
         }
-        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE
+        );
 
         armMotor.setPosition(openPosition);
         colorServo.setPosition(colorRaised);

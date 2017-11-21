@@ -111,6 +111,7 @@ public class CustomHardwareMap {
         arm = hwMap.get(Servo.class, "arm");
         rot = hwMap.get(DcMotor.class, "rot");
 
+        colorSensor.enableLed(false);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES; //changed from radians
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
