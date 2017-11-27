@@ -50,8 +50,8 @@ import org.firstinspires.ftc.teamcode.Movement.MovementLib;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name = "TestLinear", group = "Linear Autonomous")
-public class Autonomous_OpMode extends LinearCustomOpMode {
+@Autonomous(name = "MovementTest", group = "Linear Autonomous")
+public class MovementTest extends LinearCustomOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap);
@@ -61,20 +61,32 @@ public class Autonomous_OpMode extends LinearCustomOpMode {
         waitForStart();
         runtime.reset();
         ColorSensor sensor = robot.getColorSensor();
-        sensor.enableLed(false);
 
-       /* while (opModeIsActive()){
-            int rColor = robot.getColorSensor().red();
-            int bColor = robot.getColorSensor().blue();
-            telemetry.addData("Blue",bColor);
-            telemetry.addData("Red",rColor);
+        MovementLib.lowerCServo(this);
+        sleep(100);
+        double result = 0;
+        for (int i = 0; i < 50 ; i++) {
+            int rColor = sensor.red();
+            int bColor = sensor.blue();
+            telemetry.addData("Blue", bColor);
+            telemetry.addData("Red", rColor);
             telemetry.update();
-        }*/
+            result += rColor;
+            //ToDo result += rColor - bColor
+        }
+
+        if (result/50 > 40) MovementLib.forward(2, .1, this);
+        else MovementLib.forward(-2, .1, this);
+        MovementLib.raiseCServo(this);
 
         try {
-             MovementLib.forward(20, .1, this);
-            // MovementLib.rotate(90, .75, this);
-             //MovementLib.forward(20, .1, this);
+            MovementLib.forward(20, .2, this);
+            MovementLib.rotate(90, .75, this);
+            MovementLib.forward(20, .20, this);
+            MovementLib.rotateArm(20, .2, this);
+
+            MovementLib.openArm(this);
+            MovementLib.closeArm(this);
 
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());
@@ -82,3 +94,4 @@ public class Autonomous_OpMode extends LinearCustomOpMode {
         }
     }
 }
+

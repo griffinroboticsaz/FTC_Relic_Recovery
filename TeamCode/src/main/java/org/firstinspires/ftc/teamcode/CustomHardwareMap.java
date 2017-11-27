@@ -33,6 +33,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -108,7 +109,6 @@ public class CustomHardwareMap {
         arm = hwMap.get(Servo.class, "arm");
         rot = hwMap.get(DcMotor.class, "rot");
 
-        colorSensor.enableLed(false);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES; //changed from radians
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -116,8 +116,8 @@ public class CustomHardwareMap {
         gyroscope = hwMap.get(BNO055IMU.class, "imu");
         gyroscope.initialize(parameters);
 
-        left.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        right.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        left.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        right.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         lift.setDirection(DcMotor.Direction.REVERSE);
         rot.setDirection(DcMotor.Direction.FORWARD);
 
@@ -130,10 +130,10 @@ public class CustomHardwareMap {
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            rot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
         arm = hwMap.get(Servo.class, "arm");
@@ -144,28 +144,41 @@ public class CustomHardwareMap {
     public DcMotor getLeft() {
         return left;
     }
+
     public DcMotor getRight() {
         return right;
     }
+
     public DcMotor getLift() {
         return lift;
     }
+
     public Servo getArm() {
         return arm;
     }
+
     public DcMotor getRot() {
         return rot;
     }
+
     public CRServo getLeftFeeder() {
         return leftFeeder;
     }
-    public CRServo getRightFeeder() { return rightFeeder; }
+
+    public CRServo getRightFeeder() {
+        return rightFeeder;
+    }
+
     public BNO055IMU getGyroscope() {
         return gyroscope;
     }
+
     public Servo getColorServo() {
         return colorServo;
     }
-    public ColorSensor getColorSensor() { return colorSensor; }
+
+    public ColorSensor getColorSensor() {
+        return colorSensor;
+    }
 }
 
