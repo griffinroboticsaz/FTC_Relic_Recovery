@@ -7,11 +7,12 @@ import org.firstinspires.ftc.teamcode.CustomOpMode.LinearCustomOpMode;
 import org.firstinspires.ftc.teamcode.Movement.MovementLib;
 
 /**
- * Created by josephodeh on 11/27/17.
+ * Created by brianroper on 11/28/17.
  */
+//Change movements to blue side directions
 
-@Autonomous(name = "Red Recovery", group = "Linear Autonomous")
-public class RedRecoveryOpMode extends LinearCustomOpMode {
+@Autonomous(name = "Blue Recovery", group = "Linear Autonomous")
+public class BlueRecoveryOpMode extends LinearCustomOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap);
