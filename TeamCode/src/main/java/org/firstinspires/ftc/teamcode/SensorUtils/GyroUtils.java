@@ -7,6 +7,12 @@ import org.firstinspires.ftc.teamcode.CustomHardwareMap;
  */
 
 public class GyroUtils {
+    /**
+     *
+     * @param robot
+     * @param deltaTime
+     * @return
+     */
     public static double calcAngleTurned(CustomHardwareMap robot, long deltaTime){
        return deltaTime != 0 ? robot.getGyroscope().getAngularVelocity().xRotationRate * deltaTime / 1000 : 0;
     }
