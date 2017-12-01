@@ -21,7 +21,7 @@ public class RedRecoveryOpMode extends LinearCustomOpMode {
 
         waitForStart();
         runtime.reset();
-        /*ColorSensor sensor = robot.getColorSensor();
+        ColorSensor sensor = robot.getColorSensor();
 
         MovementLib.lowerCServo(this);
         sleep(100);
@@ -32,7 +32,6 @@ public class RedRecoveryOpMode extends LinearCustomOpMode {
             telemetry.addData("Blue", bColor);
             telemetry.addData("Red", rColor);
             telemetry.update();
-            //result += rColor;
             result += rColor - bColor;
         }
 
@@ -46,7 +45,7 @@ public class RedRecoveryOpMode extends LinearCustomOpMode {
             MovementLib.forward(-3, .2, this);
             MovementLib.raiseCServo(this);
             MovementLib.forward(26, .2, this);
-        }*/
+        }
 
         try {
             //MovementLib.rotate(90, .75, this);

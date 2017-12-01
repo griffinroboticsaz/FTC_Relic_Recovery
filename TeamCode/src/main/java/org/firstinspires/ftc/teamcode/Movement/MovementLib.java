@@ -64,7 +64,7 @@ public class MovementLib {
 
         while (ROBOT.getRight().isBusy() || ROBOT.getLeft().isBusy()) {
             mode.telemetry.addData("Counts", counts);
-            //mode.telemetry.addData("Counts Left", ROBOT.getLeft().getCurrentPosition());
+            mode.telemetry.addData("Counts Left", ROBOT.getLeft().getCurrentPosition());
             mode.telemetry.addData("Counts Right", ROBOT.getRight().getCurrentPosition());
             mode.telemetry.update();
         }
@@ -163,7 +163,7 @@ public class MovementLib {
     public static <Mode extends LinearCustomOpMode> void rotateArm(double angle, double speed, Mode mode) {
         ROBOT.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         int countsPerRotation = 1120;
-        int counts = (int) (angle * 360 / countsPerRotation) * 6;
+        int counts = (int) (5 * angle * countsPerRotation / 360);
         ROBOT.getRot().setTargetPosition(counts);
         ROBOT.getRot().setMode(DcMotor.RunMode.RUN_TO_POSITION);
         ROBOT.getRot().setPower(1);
