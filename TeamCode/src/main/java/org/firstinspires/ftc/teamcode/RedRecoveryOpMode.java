@@ -48,13 +48,13 @@ public class RedRecoveryOpMode extends LinearCustomOpMode {
         }
 
         try {
-            //MovementLib.rotate(90, .75, this);
-            //MovementLib.closeArm(this);
+            MovementLib.rotate(90, .75, this);
+            MovementLib.closeArm(this);
             MovementLib.rotateArm(-180, .5, this);
-            //MovementLib.openArm(this);
+            MovementLib.openArm(this);
             MovementLib.rotateArm(90, .5, this);
-            //MovementLib.closeArm(this);
-            //MovementLib.forward(10, .2, this);
+            MovementLib.closeArm(this);
+            MovementLib.forward(10, .2, this);
 
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());
