@@ -10,18 +10,18 @@ import org.firstinspires.ftc.teamcode.Movement.MovementLib;
  * Created by josephodeh on 11/27/17.
  */
 
-@Autonomous(name = "Red Recovery", group = "Linear Autonomous")
+@Autonomous(name = "Red Recovery", group = "Blue and Red OpModes")
 public class RedRecoveryOpMode extends LinearCustomOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        robot.getColorServo().setPosition(0.45);
+        robot.getColorServo().setPosition(0.20);
 
         waitForStart();
         runtime.reset();
-        ColorSensor sensor = robot.getColorSensor();
+        /*ColorSensor sensor = robot.getColorSensor();
 
         MovementLib.lowerCServo(this);
         sleep(100);
@@ -36,19 +36,26 @@ public class RedRecoveryOpMode extends LinearCustomOpMode {
             result += rColor - bColor;
         }
 
-        if (result/50 > 0) MovementLib.forward(3, .1, this);
-        else MovementLib.forward(-3, .1, this);
-        MovementLib.raiseCServo(this);
+        if (result/50 > 0) {
+            MovementLib.forward(3, .2, this);
+            MovementLib.raiseCServo(this);
+            MovementLib.forward(20, .2, this);
+
+        }
+        else {
+            MovementLib.forward(-3, .2, this);
+            MovementLib.raiseCServo(this);
+            MovementLib.forward(26, .2, this);
+        }*/
 
         try {
-            MovementLib.forward(20, .2, this);
-            MovementLib.rotate(90, .75, this);
-            MovementLib.closeArm(this);
-            MovementLib.rotateArm(180, .2, this);
-            MovementLib.openArm(this);
-            MovementLib.rotateArm(-90, .2, this);
-            MovementLib.closeArm(this);
-            MovementLib.forward(5, .2, this);
+            //MovementLib.rotate(90, .75, this);
+            //MovementLib.closeArm(this);
+            MovementLib.rotateArm(-180, .5, this);
+            //MovementLib.openArm(this);
+            MovementLib.rotateArm(90, .5, this);
+            //MovementLib.closeArm(this);
+            //MovementLib.forward(10, .2, this);
 
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());

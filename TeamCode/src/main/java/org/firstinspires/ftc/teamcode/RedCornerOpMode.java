@@ -7,12 +7,11 @@ import org.firstinspires.ftc.teamcode.CustomOpMode.LinearCustomOpMode;
 import org.firstinspires.ftc.teamcode.Movement.MovementLib;
 
 /**
- * Created by josephodeh on 11/28/17.
+ * Created by josephodeh and evan on 11/30/17.
  */
-//Change movements to blue side directions
 
-@Autonomous(name = "Blue Recovery", group = "Blue and Red OpModes")
-public class BlueRecoveryOpMode extends LinearCustomOpMode {
+@Autonomous(name = "Red Corner", group = "Blue and Red OpModes")
+public class RedCornerOpMode extends LinearCustomOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap);
@@ -37,12 +36,12 @@ public class BlueRecoveryOpMode extends LinearCustomOpMode {
             result += rColor - bColor;
         }
 
-        if (result/50 > 0) MovementLib.forward(-3, .1, this);
-        else MovementLib.forward(3, .1, this);
+        if (result/50 > 0) MovementLib.forward(3, .1, this);
+        else MovementLib.forward(-3, .1, this);
         MovementLib.raiseCServo(this);
 
         try {
-            MovementLib.forward(-20, .2, this);
+            MovementLib.forward(20, .2, this);
             MovementLib.rotate(90, .75, this);
             MovementLib.closeArm(this);
             MovementLib.rotateArm(180, .2, this);

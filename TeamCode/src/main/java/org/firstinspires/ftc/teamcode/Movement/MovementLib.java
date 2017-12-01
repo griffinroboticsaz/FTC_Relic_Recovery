@@ -53,8 +53,8 @@ public class MovementLib {
         ROBOT.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ROBOT.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        ROBOT.getRight().setTargetPosition(counts * 4);
-        ROBOT.getLeft().setTargetPosition(counts * 4);
+        ROBOT.getRight().setTargetPosition(-counts * 4);
+        ROBOT.getLeft().setTargetPosition(-counts * 4);
 
         ROBOT.getRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
         ROBOT.getLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -72,7 +72,7 @@ public class MovementLib {
         ROBOT.getRight().setPower(0);
         ROBOT.getLeft().setPower(0);
 
-       ROBOT.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ROBOT.getRight().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ROBOT.getLeft().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -113,9 +113,9 @@ public class MovementLib {
         double motorPower;
 
         if (angle != Math.abs(angle)) {
-            motorReversed = "right";
-        } else {
             motorReversed = "left";
+        } else {
+            motorReversed = "right";
         }
         while (currentAngle <= Math.abs(angle)) {
             currentTime = System.currentTimeMillis();
@@ -127,7 +127,7 @@ public class MovementLib {
                 lastTime = currentTime;
             }
             currentAngle += GyroUtils.calcAngleTurned(ROBOT, deltaTime);
-            motorPower = ((GyroUtils.calcTurnSpeed(currentAngle, angle))) * speed < .2 ? .2 : (GyroUtils.calcTurnSpeed(currentAngle, angle) * speed);
+            motorPower = ((GyroUtils.calcTurnSpeed(currentAngle, angle))) * speed < .3 ? .3 : (GyroUtils.calcTurnSpeed(currentAngle, angle) * speed);
             // motorPower = speed - (currentAngle/ angle) * speed;
             mode.telemetry.addData("speed", motorPower);
             mode.telemetry.addData("gyro", currentAngle);
@@ -163,7 +163,7 @@ public class MovementLib {
     public static <Mode extends LinearCustomOpMode> void rotateArm(double angle, double speed, Mode mode) {
         ROBOT.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         int countsPerRotation = 1120;
-        int counts = (int) (angle * 360 / countsPerRotation);
+        int counts = (int) (angle * 360 / countsPerRotation) * 6;
         ROBOT.getRot().setTargetPosition(counts);
         ROBOT.getRot().setMode(DcMotor.RunMode.RUN_TO_POSITION);
         ROBOT.getRot().setPower(1);
@@ -184,10 +184,10 @@ public class MovementLib {
     }
 
     public static <Mode extends LinearCustomOpMode> void lowerCServo(Mode mode) {
-        ROBOT.getColorServo().setPosition(1);
+        ROBOT.getColorServo().setPosition(0.90);
     }
 
     public static <Mode extends LinearCustomOpMode> void raiseCServo(Mode mode) {
-        ROBOT.getColorServo().setPosition(0.45);
+        ROBOT.getColorServo().setPosition(0.20);
     }
 }
