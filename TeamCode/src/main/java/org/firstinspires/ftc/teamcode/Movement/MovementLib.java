@@ -166,7 +166,7 @@ public class MovementLib {
         int counts = (int) (2.5 * angle * countsPerRotation / 360);
         ROBOT.getRot().setTargetPosition(counts);
         ROBOT.getRot().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        ROBOT.getRot().setPower(1);
+        ROBOT.getRot().setPower(speed);
         while (ROBOT.getRot().isBusy()) {
             mode.telemetry.addData("Moving rotation arm to", counts);
             mode.telemetry.addData("Current Position", ROBOT.getRot().getCurrentPosition());
@@ -174,7 +174,7 @@ public class MovementLib {
         }
         ROBOT.getRot().setPower(0);
         ROBOT.getRot().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ROBOT.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //ROBOT.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public static <Mode extends LinearCustomOpMode> void closeArm(Mode mode) {
