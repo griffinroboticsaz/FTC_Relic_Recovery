@@ -163,12 +163,14 @@ public class MovementLib {
     public static <Mode extends LinearCustomOpMode> void rotateArm(double angle, double speed, Mode mode) {
         ROBOT.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         int countsPerRotation = 1120;
-        int counts = (int) (5 * angle * countsPerRotation / 360);
+        int counts = (int) (2.5 * angle * countsPerRotation / 360);
         ROBOT.getRot().setTargetPosition(counts);
         ROBOT.getRot().setMode(DcMotor.RunMode.RUN_TO_POSITION);
         ROBOT.getRot().setPower(1);
         while (ROBOT.getRot().isBusy()) {
             mode.telemetry.addData("Moving rotation arm to", counts);
+            mode.telemetry.addData("Current Position", ROBOT.getRot().getCurrentPosition());
+            mode.telemetry.update();
         }
         ROBOT.getRot().setPower(0);
         ROBOT.getRot().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -180,7 +182,7 @@ public class MovementLib {
     }
 
     public static <Mode extends LinearCustomOpMode> void openArm(Mode mode) {
-        ROBOT.getArm().setPosition(0.37);
+        ROBOT.getArm().setPosition(0.4);
     }
 
     public static <Mode extends LinearCustomOpMode> void lowerCServo(Mode mode) {
@@ -188,6 +190,6 @@ public class MovementLib {
     }
 
     public static <Mode extends LinearCustomOpMode> void raiseCServo(Mode mode) {
-        ROBOT.getColorServo().setPosition(0.20);
+        ROBOT.getColorServo().setPosition(0.30);
     }
 }

@@ -50,9 +50,10 @@ public class RedRecoveryOpMode extends LinearCustomOpMode {
         try {
             MovementLib.rotate(90, .75, this);
             MovementLib.closeArm(this);
-            MovementLib.rotateArm(-180, .5, this);
+            MovementLib.rotateArm(-45, .1, this);
             MovementLib.openArm(this);
-            MovementLib.rotateArm(90, .5, this);
+            sleep(5000);
+            MovementLib.rotateArm(45, .1, this);
             MovementLib.closeArm(this);
             MovementLib.forward(10, .2, this);
 
