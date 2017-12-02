@@ -192,6 +192,6 @@ public class MovementLib {
     }
 
     public static <Mode extends LinearCustomOpMode> void raiseCServo(Mode mode) {
-        ROBOT.getColorServo().setPosition(0.3);
+        ROBOT.getColorServo().setPosition(0.31);
     }
 }

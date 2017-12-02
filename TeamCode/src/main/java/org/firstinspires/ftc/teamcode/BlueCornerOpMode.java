@@ -17,7 +17,7 @@ public class BlueCornerOpMode extends LinearCustomOpMode {
         robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        robot.getColorServo().setPosition(0.3);
+        robot.getColorServo().setPosition(0.31);
 
         waitForStart();
         runtime.reset();
@@ -35,7 +35,7 @@ public class BlueCornerOpMode extends LinearCustomOpMode {
             result += rColor - bColor;
         }
 
-        if (result/50 > 0) {
+        if (result/50 < 0) {
             MovementLib.forward(3, .2, this);
             MovementLib.raiseCServo(this);
             MovementLib.forward(-25, .2, this);
@@ -51,15 +51,16 @@ public class BlueCornerOpMode extends LinearCustomOpMode {
             MovementLib.rotate(-90, .75, this);
             MovementLib.forward(5, .75, this);
             MovementLib.rotate(-90, .75, this);
+            MovementLib.rotateArm(-10, .2, this);
             MovementLib.openArm(this);
-            MovementLib.rotateArm(22, .2, this);
+            MovementLib.rotateArm(32, .2, this);
             MovementLib.closeArm(this);
-            MovementLib.rotateArm(-180, .2, this);
+            MovementLib.rotateArm(-190, .2, this);
             MovementLib.openArm(this);
             sleep(2000);
-            MovementLib.rotateArm(10, .2, this);
+            MovementLib.rotateArm(30, .2, this);
             MovementLib.closeArm(this);
-            MovementLib.rotateArm(160, .2, this);
+            MovementLib.rotateArm(140, .2, this);
             sleep(2000);
             MovementLib.forward(15, .2, this);
 
