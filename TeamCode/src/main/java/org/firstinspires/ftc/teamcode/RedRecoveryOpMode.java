@@ -50,11 +50,13 @@ public class RedRecoveryOpMode extends LinearCustomOpMode {
         try {
             MovementLib.rotate(90, .75, this);
             MovementLib.closeArm(this);
-            MovementLib.rotateArm(-45, .1, this);
+            MovementLib.rotateArm(-45, .2, this);
             MovementLib.openArm(this);
-            sleep(5000);
-            MovementLib.rotateArm(45, .1, this);
+            sleep(2000);
+            MovementLib.rotateArm(45, .2, this);
+            sleep(2000);
             MovementLib.closeArm(this);
+            sleep(2000);
             MovementLib.forward(10, .2, this);
 
         } catch (NullPointerException NPE) {
