@@ -18,7 +18,7 @@ public class BlueRecoveryOpMode extends LinearCustomOpMode {
         robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        robot.getColorServo().setPosition(0.45);
+        robot.getColorServo().setPosition(0.30);
 
         waitForStart();
         runtime.reset();
@@ -33,23 +33,30 @@ public class BlueRecoveryOpMode extends LinearCustomOpMode {
             telemetry.addData("Blue", bColor);
             telemetry.addData("Red", rColor);
             telemetry.update();
-            //result += rColor;
             result += rColor - bColor;
         }
 
-        if (result/50 > 0) MovementLib.forward(-3, .1, this);
-        else MovementLib.forward(3, .1, this);
-        MovementLib.raiseCServo(this);
+        if (result/50 > 0) {
+            MovementLib.forward(3, .2, this);
+            MovementLib.raiseCServo(this);
+            MovementLib.forward(-26, .2, this);
+
+        }
+        else {
+            MovementLib.forward(-3, .2, this);
+            MovementLib.raiseCServo(this);
+            MovementLib.forward(-20, .2, this);
+        }
 
         try {
-            MovementLib.forward(-20, .2, this);
             MovementLib.rotate(90, .75, this);
             MovementLib.closeArm(this);
-            MovementLib.rotateArm(180, .2, this);
+            MovementLib.rotateArm(-45, .1, this);
             MovementLib.openArm(this);
-            MovementLib.rotateArm(-90, .2, this);
+            sleep(5000);
+            MovementLib.rotateArm(45, .1, this);
             MovementLib.closeArm(this);
-            MovementLib.forward(5, .2, this);
+            MovementLib.forward(10, .2, this);
 
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());

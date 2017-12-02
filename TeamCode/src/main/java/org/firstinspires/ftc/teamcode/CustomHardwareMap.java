@@ -173,9 +173,7 @@ public class CustomHardwareMap {
         return gyroscope;
     }
 
-    public Servo getColorServo() {
-        return colorServo;
-    }
+    public Servo getColorServo() { return colorServo; }
 
     public ColorSensor getColorSensor() {
         return colorSensor;

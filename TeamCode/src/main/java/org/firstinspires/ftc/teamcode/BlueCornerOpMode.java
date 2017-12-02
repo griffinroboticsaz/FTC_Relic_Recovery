@@ -7,11 +7,11 @@ import org.firstinspires.ftc.teamcode.CustomOpMode.LinearCustomOpMode;
 import org.firstinspires.ftc.teamcode.Movement.MovementLib;
 
 /**
- * Created by josephodeh and evan on 11/30/17.
+ * Created by josephodeh on 12/1/17.
  */
 
-@Autonomous(name = "Red Corner", group = "Blue and Red OpModes")
-public class RedCornerOpMode extends LinearCustomOpMode {
+@Autonomous(name = "Blue Corner", group = "Blue and Red OpModes")
+public class BlueCornerOpMode extends LinearCustomOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap);
@@ -38,19 +38,19 @@ public class RedCornerOpMode extends LinearCustomOpMode {
         if (result/50 > 0) {
             MovementLib.forward(3, .2, this);
             MovementLib.raiseCServo(this);
-            MovementLib.forward(20, .2, this);
+            MovementLib.forward(-26, .2, this);
 
         }
         else {
             MovementLib.forward(-3, .2, this);
             MovementLib.raiseCServo(this);
-            MovementLib.forward(26, .2, this);
+            MovementLib.forward(-20, .2, this);
         }
 
         try {
             MovementLib.rotate(-90, .75, this);
             MovementLib.forward(5, .75, this);
-            MovementLib.rotate(90, .75, this);
+            MovementLib.rotate(-90, .75, this);
             MovementLib.closeArm(this);
             MovementLib.rotateArm(-45, .1, this);
             MovementLib.openArm(this);

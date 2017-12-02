@@ -17,7 +17,7 @@ public class RedRecoveryOpMode extends LinearCustomOpMode {
         robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        robot.getColorServo().setPosition(0.20);
+        robot.getColorServo().setPosition(0.30);
 
         waitForStart();
         runtime.reset();
