@@ -35,7 +35,7 @@ public class RedCornerOpMode extends LinearCustomOpMode {
             result += rColor - bColor;
         }
 
-        if (result/50 < 0) {
+        if (result/50 > 0) {
             MovementLib.forward(3, .2, this);
             MovementLib.raiseCServo(this);
             MovementLib.forward(19, .2, this);
@@ -58,9 +58,9 @@ public class RedCornerOpMode extends LinearCustomOpMode {
             MovementLib.rotateArm(-190, .2, this);
             MovementLib.openArm(this);
             sleep(2000);
-            MovementLib.rotateArm(30, .2, this);
+            MovementLib.rotateArm(60, .2, this);
             MovementLib.closeArm(this);
-            MovementLib.rotateArm(140, .2, this);
+            MovementLib.rotateArm(110, .2, this);
             sleep(2000);
             MovementLib.forward(15, .2, this);
 
