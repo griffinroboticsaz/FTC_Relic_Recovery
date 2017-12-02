@@ -52,10 +52,10 @@ public class RedCornerOpMode extends LinearCustomOpMode {
             MovementLib.forward(5, .75, this);
             MovementLib.rotate(90, .75, this);
             MovementLib.closeArm(this);
-            MovementLib.rotateArm(-45, .1, this);
+            MovementLib.rotateArm(-180, .1, this);
             MovementLib.openArm(this);
             sleep(5000);
-            MovementLib.rotateArm(45, .1, this);
+            MovementLib.rotateArm(90, .1, this);
             MovementLib.closeArm(this);
             MovementLib.forward(10, .2, this);
 
