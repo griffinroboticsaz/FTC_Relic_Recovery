@@ -161,7 +161,9 @@ public class MovementLib {
     }
 
     public static <Mode extends LinearCustomOpMode> void rotateArm(double angle, double speed, Mode mode) {
+        ROBOT.getRot().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ROBOT.getRot().setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ROBOT.getRot().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         int countsPerRotation = 1120;
         int counts = (int) (5 * angle * countsPerRotation / 360);
         ROBOT.getRot().setTargetPosition(counts);
@@ -190,6 +192,6 @@ public class MovementLib {
     }
 
     public static <Mode extends LinearCustomOpMode> void raiseCServo(Mode mode) {
-        ROBOT.getColorServo().setPosition(0.17);
+        ROBOT.getColorServo().setPosition(0.3);
     }
 }

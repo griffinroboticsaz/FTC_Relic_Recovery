@@ -18,7 +18,7 @@ public class BlueRecoveryOpMode extends LinearCustomOpMode {
         robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        robot.getColorServo().setPosition(0.27);
+        robot.getColorServo().setPosition(0.3);
 
         waitForStart();
         runtime.reset();
@@ -50,12 +50,16 @@ public class BlueRecoveryOpMode extends LinearCustomOpMode {
 
         try {
             MovementLib.rotate(90, .75, this);
+            MovementLib.openArm(this);
+            MovementLib.rotateArm(22, .2, this);
             MovementLib.closeArm(this);
             MovementLib.rotateArm(-180, .2, this);
             MovementLib.openArm(this);
-            sleep(5000);
-            MovementLib.rotateArm(170, .2, this);
+            sleep(2000);
+            MovementLib.rotateArm(10, .2, this);
             MovementLib.closeArm(this);
+            MovementLib.rotateArm(160, .2, this);
+            sleep(2000);
             MovementLib.forward(15, .2, this);
 
         } catch (NullPointerException NPE) {
