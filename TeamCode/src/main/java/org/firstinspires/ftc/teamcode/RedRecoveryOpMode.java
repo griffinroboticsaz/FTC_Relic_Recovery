@@ -17,7 +17,7 @@ public class RedRecoveryOpMode extends LinearCustomOpMode {
         robot.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        robot.getColorServo().setPosition(0.30);
+        robot.getColorServo().setPosition(0.27);
 
         waitForStart();
         runtime.reset();
@@ -38,13 +38,13 @@ public class RedRecoveryOpMode extends LinearCustomOpMode {
         if (result/50 > 0) {
             MovementLib.forward(3, .2, this);
             MovementLib.raiseCServo(this);
-            MovementLib.forward(20, .2, this);
+            MovementLib.forward(19, .2, this);
 
         }
         else {
             MovementLib.forward(-3, .2, this);
             MovementLib.raiseCServo(this);
-            MovementLib.forward(26, .2, this);
+            MovementLib.forward(25, .2, this);
         }
 
         try {
@@ -53,11 +53,11 @@ public class RedRecoveryOpMode extends LinearCustomOpMode {
             MovementLib.rotateArm(-180, .2, this);
             MovementLib.openArm(this);
             sleep(2000);
-            MovementLib.rotateArm(90, .2, this);
+            MovementLib.rotateArm(170, .2, this);
             sleep(2000);
             MovementLib.closeArm(this);
             sleep(2000);
-            MovementLib.forward(10, .2, this);
+            MovementLib.forward(15, .2, this);
 
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());
