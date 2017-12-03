@@ -38,31 +38,32 @@ public class BlueCornerOpMode extends LinearCustomOpMode {
         if (result/50 > 0) {
             MovementLib.forward(3, .2, this);
             MovementLib.raiseCServo(this);
-            MovementLib.forward(-25, .2, this);
+            MovementLib.forward(-27, .2, this);
 
         }
         else {
             MovementLib.forward(-3, .2, this);
             MovementLib.raiseCServo(this);
-            MovementLib.forward(-19, .2, this);
+            MovementLib.forward(-21, .2, this);
         }
 
         try {
             MovementLib.rotate(-90, .75, this);
-            MovementLib.forward(5, .75, this);
-            MovementLib.rotate(-90, .75, this);
-            MovementLib.rotateArm(-10, .2, this);
+            MovementLib.forward(18, .75, this);
+            MovementLib.rotate(-85, .75, this);
+            MovementLib.rotateArm(-10, .4, this);
             MovementLib.openArm(this);
-            MovementLib.rotateArm(32, .2, this);
+            MovementLib.rotateArm(32, .4, this);
             MovementLib.closeArm(this);
-            MovementLib.rotateArm(-190, .2, this);
+            MovementLib.rotateArm(-215, .4, this);
             MovementLib.openArm(this);
-            sleep(2000);
-            MovementLib.rotateArm(60, .2, this);
+            sleep(500);
+            MovementLib.rotateArm(60, .4, this);
             MovementLib.closeArm(this);
-            MovementLib.rotateArm(110, .2, this);
-            sleep(2000);
+            MovementLib.rotateArm(110, .4, this);
+            sleep(500);
             MovementLib.forward(15, .2, this);
+            MovementLib.forward(-3, .2, this);
 
         } catch (NullPointerException NPE) {
             telemetry.addData("Error", NPE.getMessage());

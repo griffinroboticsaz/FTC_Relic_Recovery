@@ -74,9 +74,9 @@ public class ManualOpMode extends OpMode {
         leftFeeder.setPower(power("feeders"));
         rightFeeder.setPower(-power("feeders"));
 
-        if (gamepad1.dpad_down) {
+        if (gamepad1.left_trigger > .1) {
             liftDirection = directionDown;
-        } else if (gamepad1.dpad_up) {
+        } else if (gamepad1.right_trigger > .1) {
             liftDirection = directionUp;
         } else {
             liftDirection = 0;
@@ -119,8 +119,8 @@ public class ManualOpMode extends OpMode {
         else throw new IllegalArgumentException("There is no such motor!");*/
 
         switch (side){
-            case "left": return -gamepad1.left_stick_y + gamepad1.left_stick_x;
-            case "right": return -gamepad1.left_stick_y - gamepad1.left_stick_x;
+            case "left": return (-gamepad1.left_stick_y + gamepad1.left_stick_x)/2;
+            case "right": return (-gamepad1.left_stick_y - gamepad1.left_stick_x)/2;
             case "feeders": if (gamepad1.right_bumper) {return 1;}
                 else if (gamepad1.left_bumper) {return -1;}
                 else {return 0;}

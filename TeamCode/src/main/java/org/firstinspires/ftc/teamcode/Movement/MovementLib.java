@@ -62,7 +62,7 @@ public class MovementLib {
         ROBOT.getRight().setPower(speed);
         ROBOT.getLeft().setPower(speed);
 
-        while (ROBOT.getRight().isBusy() || ROBOT.getLeft().isBusy()) {
+        while (ROBOT.getRight().isBusy() && ROBOT.getLeft().isBusy()) {
             mode.telemetry.addData("Counts", counts);
             mode.telemetry.addData("Counts Left", ROBOT.getLeft().getCurrentPosition());
             mode.telemetry.addData("Counts Right", ROBOT.getRight().getCurrentPosition());
@@ -127,7 +127,7 @@ public class MovementLib {
                 lastTime = currentTime;
             }
             currentAngle += GyroUtils.calcAngleTurned(ROBOT, deltaTime);
-            motorPower = ((GyroUtils.calcTurnSpeed(currentAngle, angle))) * speed < .3 ? .3 : (GyroUtils.calcTurnSpeed(currentAngle, angle) * speed);
+            motorPower = ((GyroUtils.calcTurnSpeed(currentAngle, angle))) * speed < .25 ? .25 : (GyroUtils.calcTurnSpeed(currentAngle, angle) * speed);
             // motorPower = speed - (currentAngle/ angle) * speed;
             mode.telemetry.addData("speed", motorPower);
             mode.telemetry.addData("gyro", currentAngle);
